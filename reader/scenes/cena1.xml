@@ -27,23 +27,24 @@
 
 	<lights>
 		<omni id="omni1" enabled="true" >
-			<location x="2" y="1" z="1" w="0" />
-			<ambient r="1" g="1" b="1" a="0" />
-			<diffuse r="1" g="1" b="1" a="0" />
-			<specular r="0" g="0" b="1" a="1" />
-		</omni>
-		<omni id="omni2" enabled="false" >
-			<location x="2" y="3" z="1" w="0" />
-			<ambient r="1" g="1" b="1" a="0" />
-			<diffuse r="1" g="1" b="1" a="0" />
-			<specular r="0" g="0" b="1" a="1" />
-		</omni>
-		<spot id="spot1" enabled="false" angle="45" exponent="2">
-			<target x="5" y="5" z="5" />
-			<location x="2" y="2" z="1" />
-			<ambient r="0" g="1" b="0" a="0" />
+			<location x="12" y="12" z="12" w="0" />
+			<ambient r="1" g="1" b="1" a="1" />
 			<diffuse r="1" g="1" b="1" a="1" />
-			<specular r="1" g="1" b="1" a="0" />
+			<specular r="1" g="1" b="1" a="1" />
+		</omni>
+		<spot id="spotBlue" enabled="false" angle="15" exponent="0">
+			<target x="12" y="2" z="15" />
+			<location x="1" y="12" z="1" />
+			<ambient r=".071" g=".447" b=".498" a="1" />
+			<diffuse r=".071" g=".447" b=".498" a="1" />
+			<specular r="1" g="1" b="1" a="1" />
+		</spot>
+		<spot id="spotRed" enabled="false" angle="15" exponent="0">
+			<target x="12" y="2" z="15" />
+			<location x="23" y="12" z="23" />
+			<ambient r=".910" g=".2" b=".220" a="1" />
+			<diffuse r=".910" g=".2" b=".220" a="1" />
+			<specular r="1" g="1" b="1" a="1" />
 		</spot>
 	</lights>
 
@@ -73,9 +74,9 @@
 
 		<material id="2" >
 			<emission r="0" g="0" b="0" a="1" />
-			<ambient r=".047" g=".91" b=".631" a="1" />
+			<ambient r=".047" g=".91" b=".631" a="0" />
 			<diffuse r=".047" g=".91" b=".631" a="1" />
-			<specular r=".5" g=".5" b="0.5" a="1" />
+			<specular r="1" g="1" b="1" a="0" />
 			<shininess value="2" />
 		</material>
 
@@ -83,16 +84,16 @@
 			<emission r="0" g="0" b="0" a="1" />
 			<ambient r=".08" g=".2" b=".451" a="1" />
 			<diffuse r=".08" g=".2" b=".451" a="1" />
-			<specular r=".5" g=".5" b="0.5" a="1" />
-			<shininess value="10" />
+			<specular r="1" g="1" b="1" a="1" />
+			<shininess value="64" />
 		</material>
 
 		<material id="p2" >
 			<emission r="0" g="0" b="0" a="1" />
 			<ambient r=".851" g=".016" b=".016" a="1" />
 			<diffuse r=".851" g=".016" b=".016" a="1" />
-			<specular r=".5" g=".5" b="0.5" a="1" />
-			<shininess value="10" />
+			<specular r="1" g="1" b="1" a="1" />
+			<shininess value="64" />
 		</material>
 	</materials>
 
@@ -171,24 +172,24 @@
 				<componentref id='floor' />
 				<componentref id='board_box' />
 				<componentref id='board' />
-				<componentref id='player1' />
-				<componentref id='player2' />
-				<componentref id='player1_1' />
-				<componentref id='player2_1' />
-				<componentref id='player1_2' />
-				<componentref id='player2_2' />
-				<componentref id='player1_3' />
-				<componentref id='player2_3' />
-				<componentref id='player1_4' />
-				<componentref id='player2_4' />
-				<componentref id='player1_5' />
-				<componentref id='player2_5' />
-				<componentref id='player1_6' />
-				<componentref id='player2_6' />
-				<componentref id='player1_7' />
-				<componentref id='player2_7' />
-				<componentref id='player1_8' />
-				<componentref id='player2_8' />
+				<componentref id='playerB' />
+				<componentref id='playerR' />
+				<componentref id='playerB_1' />
+				<componentref id='playerR_1' />
+				<componentref id='playerB_2' />
+				<componentref id='playerR_2' />
+				<componentref id='playerB_3' />
+				<componentref id='playerR_3' />
+				<componentref id='playerB_4' />
+				<componentref id='playerR_4' />
+				<componentref id='playerB_5' />
+				<componentref id='playerR_5' />
+				<componentref id='playerB_6' />
+				<componentref id='playerR_6' />
+				<componentref id='playerB_7' />
+				<componentref id='playerR_7' />
+				<componentref id='playerB_8' />
+				<componentref id='playerR_8' />
 			</children>
 		</component>
 
@@ -207,7 +208,7 @@
 			</children>
 		</component>
 
-		<component id = "player1">
+		<component id = "playerB">
 			<transformation>
 				<translate x='12' y='2.8' z='8.25' />
 				<scale x='.3' y='.3' z='.3' />
@@ -221,7 +222,7 @@
 			</children>
 		</component>
 
-		<component id = "player2">
+		<component id = "playerR">
 			<transformation>
 				<translate x='12' y='2.8' z='13.75' />
 				<scale x='.3' y='.3' z='.3' />
@@ -235,7 +236,7 @@
 			</children>
 		</component>
 
-		<component id = "player1_1">
+		<component id = "playerB_1">
 			<transformation>
 				<translate x='12.66' y='2.7' z='8.3' />
 				<scale x='.2' y='.2' z='.2' />
@@ -249,7 +250,7 @@
 			</children>
 		</component>
 
-		<component id = "player2_1">
+		<component id = "playerR_1">
 			<transformation>
 				<translate x='12.66' y='2.7' z='13.7' />
 				<scale x='.2' y='.2' z='.2' />
@@ -263,7 +264,7 @@
 			</children>
 		</component>
 
-		<component id = "player1_2">
+		<component id = "playerB_2">
 			<transformation>
 				<translate x='11.34' y='2.7' z='8.3' />
 				<scale x='.2' y='.2' z='.2' />
@@ -277,7 +278,7 @@
 			</children>
 		</component>
 
-		<component id = "player2_2">
+		<component id = "playerR_2">
 			<transformation>
 				<translate x='11.34' y='2.7' z='13.7' />
 				<scale x='.2' y='.2' z='.2' />
@@ -291,7 +292,7 @@
 			</children>
 		</component>
 
-		<component id = "player1_3">
+		<component id = "playerB_3">
 			<transformation>
 				<translate x='13.32' y='2.7' z='8.3' />
 				<scale x='.2' y='.2' z='.2' />
@@ -305,7 +306,7 @@
 			</children>
 		</component>
 
-		<component id = "player2_3">
+		<component id = "playerR_3">
 			<transformation>
 				<translate x='13.32' y='2.7' z='13.7' />
 				<scale x='.2' y='.2' z='.2' />
@@ -319,7 +320,7 @@
 			</children>
 		</component>
 
-		<component id = "player1_4">
+		<component id = "playerB_4">
 			<transformation>
 				<translate x='10.68' y='2.7' z='8.3' />
 				<scale x='.2' y='.2' z='.2' />
@@ -333,7 +334,7 @@
 			</children>
 		</component>
 
-		<component id = "player2_4">
+		<component id = "playerR_4">
 			<transformation>
 				<translate x='10.68' y='2.7' z='13.7' />
 				<scale x='.2' y='.2' z='.2' />
@@ -347,7 +348,7 @@
 			</children>
 		</component>
 
-		<component id = "player1_5">
+		<component id = "playerB_5">
 			<transformation>
 				<translate x='11.34' y='2.7' z='8.96' />
 				<scale x='.2' y='.2' z='.2' />
@@ -361,7 +362,7 @@
 			</children>
 		</component>
 
-		<component id = "player2_5">
+		<component id = "playerR_5">
 			<transformation>
 				<translate x='11.34' y='2.7' z='13.04' />
 				<scale x='.2' y='.2' z='.2' />
@@ -375,7 +376,7 @@
 			</children>
 		</component>
 
-		<component id = "player1_6">
+		<component id = "playerB_6">
 			<transformation>
 				<translate x='12' y='2.7' z='8.96' />
 				<scale x='.2' y='.2' z='.2' />
@@ -389,7 +390,7 @@
 			</children>
 		</component>
 
-		<component id = "player2_6">
+		<component id = "playerR_6">
 			<transformation>
 				<translate x='12' y='2.7' z='13.04' />
 				<scale x='.2' y='.2' z='.2' />
@@ -403,7 +404,7 @@
 			</children>
 		</component>
 
-		<component id = "player1_7">
+		<component id = "playerB_7">
 			<transformation>
 				<translate x='12.66' y='2.7' z='8.96' />
 				<scale x='.2' y='.2' z='.2' />
@@ -417,7 +418,7 @@
 			</children>
 		</component>
 
-		<component id = "player2_7">
+		<component id = "playerR_7">
 			<transformation>
 				<translate x='12.66' y='2.7' z='13.04' />
 				<scale x='.2' y='.2' z='.2' />
@@ -431,7 +432,7 @@
 			</children>
 		</component>
 
-		<component id = "player1_8">
+		<component id = "playerB_8">
 			<transformation>
 				<translate x='12' y='2.7' z='9.62' />
 				<scale x='.2' y='.2' z='.2' />
@@ -445,7 +446,7 @@
 			</children>
 		</component>
 
-		<component id = "player2_8">
+		<component id = "playerR_8">
 			<transformation>
 				<translate x='12' y='2.7' z='12.38' />
 				<scale x='.2' y='.2' z='.2' />

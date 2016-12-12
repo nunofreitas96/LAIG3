@@ -27,6 +27,7 @@ serialInclude([ '../lib/CGF.js',
                 'MyLinearAnimation.js',
                 'MyAnimation.js',
                 'MyCircularAnimation.js',
+                'MyPieceAnimation.js',
 
 
 main=function()
@@ -46,7 +47,7 @@ main=function()
   // get file name provided in URL, e.g. http://localhost/myproj/?file=myfile.xml
   // or use "demo.xml" as default (assumes files in subfolder "scenes", check MySceneGraph constructor)
 
-  var filename=getUrlVars()['file'] || "cena.xml";
+  var filename=getUrlVars()['file'] || "cena1.xml";
 
   // create and load graph, and associate it to scene.
   // Check console for loading errors
