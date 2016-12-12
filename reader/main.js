@@ -47,11 +47,13 @@ main=function()
   // get file name provided in URL, e.g. http://localhost/myproj/?file=myfile.xml
   // or use "demo.xml" as default (assumes files in subfolder "scenes", check MySceneGraph constructor)
 
-  var filename=getUrlVars()['file'] || "cena1.xml";
+  //var filenames=[getUrlVars()['file'] || "cena1.xml", getUrlVars()['file'] || "cena2.xml"];
+  var filename1=getUrlVars()['file'] || "cena1.xml";
+  var filename2=getUrlVars()['file'] || "cena2.xml";
 
   // create and load graph, and associate it to scene.
   // Check console for loading errors
-  var myGraph = new MySceneGraph(filename, myScene);
+  var myGraph = new MySceneGraph(filename1, myScene);
 
   // start
   app.run();

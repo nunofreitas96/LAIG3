@@ -178,7 +178,7 @@
       <transformation>
       </transformation>
       <materials>
-        <material id="inherit" />
+        <material id = "inherit" />
       </materials>
       <texture id='none' />
       <children>
@@ -189,20 +189,9 @@
 				<componentref id='playerB_1' />
 				<componentref id='playerR_1' />
 				<componentref id='playerB_2' />
-				<componentref id='playerR_2' />
-				<componentref id='playerB_3' />
-				<componentref id='playerR_3' />
-				<componentref id='playerB_4' />
-				<componentref id='playerR_4' />
-				<componentref id='playerB_5' />
-				<componentref id='playerR_5' />
-				<componentref id='playerB_6' />
-				<componentref id='playerR_6' />
-				<componentref id='playerB_7' />
-				<componentref id='playerR_7' />
 				<componentref id='playerB_8' />
 				<componentref id='playerR_8' />
-      </childen>
+      </children>
     </component>
 
 		<component id = "board">
