@@ -17,10 +17,6 @@ MyInterface.prototype.init = function(application) {
 	this.Lights = this.gui.addFolder("Lights");
 	this.Lights.open();
 
-	this.Scenes = this.gui.addFolder("Scenes");
-	this.gui.add(this.scene, 'changeScene');
-	this.Scenes.open();
-
 	return true;
 };
 

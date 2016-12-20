@@ -1,7 +1,6 @@
 
 function MySceneGraph(filename, scene) {
 	this.loadedOk = null;
-	this.fileNo = 0;
 
 	// Establish bidirectional references between scene and graph
 	this.scene = scene;
@@ -28,22 +27,13 @@ function MySceneGraph(filename, scene) {
 	this.spotlights = [];
 
 	this.scene.views = {};
-
-	//this.scene.files = filename;
 	/*
 	* Read the contents of the xml file, and refer to this class for loading and error handlers.
 	* After the file is read, the reader calls onXMLReady on this object.
 	* If any error occurs, the reader calls onXMLError on this object, with an error message
 	*/
 
-	//this.reader.open('scenes/'+this.scene.files[0], this);
 	this.reader.open('scenes/'+filename, this);
-}
-
-MySceneGraph.prototype.changeReader = function(){
-	this.fileNo = (this.fileNo++) % this.scene.files.length;
-	//return this.scene.files[this.fileNo];
-	this.reader.open('scenes/'+this.scene.files[this.fileNo], this);
 }
 
 /*

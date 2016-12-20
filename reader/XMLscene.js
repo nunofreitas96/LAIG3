@@ -319,11 +319,3 @@ XMLscene.prototype.initLights = function () {
     };
 
   };
-
-  XMLscene.prototype.changeScene = function(){
-  	console.log("Do something...");
-    //this.graph.changeReader();
-    var filename = getUrlVars()['file'] || "cena2.xml";
-    this.graph.reader.open('scenes/'+filename, this.graph);
-    console.log("Changed to other scene !");
-  }
