@@ -2,7 +2,6 @@
 function XMLscene(interface) {
   CGFscene.call(this);
   this.myInterface = interface;
-  this.fileNo = 0;
 }
 
 XMLscene.prototype = Object.create(CGFscene.prototype);
@@ -323,25 +322,8 @@ XMLscene.prototype.initLights = function () {
 
   XMLscene.prototype.changeScene = function(){
   	console.log("Do something...");
-    /*
-    var myInterface = new MyInterface();
-    myInterface.cl();
-    this.myInterface = myInterface
-    var myScene = new XMLscene(myInterface);
-    */
-
-    var filename = null;
-    switch (this.fileNo) {
-      case 0:
-        filename = getUrlVars()['file'] || "cena2.xml";
-        this.fileNo = 1;
-        break;
-      case 1:
-        filename = getUrlVars()['file'] || "cena1.xml";
-        this.fileNo = 0;
-        break;
-    }
-
+    //this.graph.changeReader();
+    var filename = getUrlVars()['file'] || "cena2.xml";
     this.graph.reader.open('scenes/'+filename, this.graph);
     console.log("Changed to other scene !");
   }

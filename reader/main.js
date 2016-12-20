@@ -49,6 +49,7 @@ main=function()
 
   //var filenames=[getUrlVars()['file'] || "cena1.xml", getUrlVars()['file'] || "cena2.xml"];
   var filename1=getUrlVars()['file'] || "cena1.xml";
+  var filename2=getUrlVars()['file'] || "cena2.xml";
 
   // create and load graph, and associate it to scene.
   // Check console for loading errors

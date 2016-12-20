@@ -1,6 +1,7 @@
 
 function MySceneGraph(filename, scene) {
 	this.loadedOk = null;
+	this.fileNo = 0;
 
 	// Establish bidirectional references between scene and graph
 	this.scene = scene;
