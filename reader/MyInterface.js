@@ -8,17 +8,42 @@ MyInterface.prototype.constructor = MyInterface;
 MyInterface.prototype.init = function(application) {
 	// call CGFinterface init
 	CGFinterface.prototype.init.call(this, application);
-
+    
+    
 
 	this.gui = new dat.GUI();
-
-
+    this.guiControls = new dat.GUI();
+    
+    this.camera = 0;
+    this.difficulty = 1;
+    this.type = 0;
+    var Controls = function() {
+        this.time = 0;
+    };
+    var controls = new Controls();
+    var cena = this.scene;
+    
 	this.Lights = this.gui.addFolder("Lights");
 	this.Lights.open();
     
     this.Scenes = this.gui.addFolder("Scenes");
     this.Scenes.add(this.scene, 'changeScene');
     this.Scenes.open();
+    
+    this.Options = this.guiControls.addFolder("Options");
+    this.Options.add(this, 'difficulty', 1, 3).step(1);
+    this.Options.add(this, 'type', { HvsH: 0, HvsM: 1, MvsM: 2 });
+    this.Options.add(this.scene, 'undoFunc');
+    this.Options.add(this, 'camera', { p1: 0, right: 1, p2: 2 , left: 3});
+    this.Options.add(controls, 'time').listen();
+    this.Options.open();
+    
+    
+    var update = function() {
+        requestAnimationFrame(update);
+        controls.time = cena.elapsedTime;
+    };
+    update();
 
 	return true;
 };

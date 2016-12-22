@@ -6,17 +6,25 @@
 	<scene root="root" axis_length="1" />
 
 	<views default="0">
-		<perspective id="0" near=".1" far="500" angle=".4">
+		<perspective id="-1" near=".1" far="500" angle=".4">
 			<from x="20" y="20" z="70" />
 			<to x="10" y="5" z="0" />
 		</perspective>
-		<perspective id="1" near=".1" far="500" angle=".4">
+		<perspective id="0" near=".1" far="500" angle=".4">
 			<from x="12" y="20" z="30" />
 			<to x="12" y="0" z="7" />
+		</perspective>
+        <perspective id="1" near=".1" far="500" angle=".4">
+			<from x="30" y="20" z="11" />
+			<to x="12" y="0" z="11" />
 		</perspective>
 		<perspective id="2" near=".1" far="200" angle=".4">
 			<from x="12" y="20" z="-7" />
 			<to x="12" y="0" z="15" />
+		</perspective>
+        <perspective id="3" near=".1" far="500" angle=".4">
+			<from x="-6" y="20" z="11" />
+			<to x="12" y="0" z="11" />
 		</perspective>
 	</views>
 
