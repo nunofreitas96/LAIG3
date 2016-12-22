@@ -1,5 +1,4 @@
 function MyInterface() {
-	//call CGFinterface constructor
 	CGFinterface.call(this);
 };
 
@@ -16,6 +15,10 @@ MyInterface.prototype.init = function(application) {
 
 	this.Lights = this.gui.addFolder("Lights");
 	this.Lights.open();
+    
+    this.Scenes = this.gui.addFolder("Scenes");
+    this.Scenes.add(this.scene, 'changeScene');
+    this.Scenes.open();
 
 	return true;
 };
