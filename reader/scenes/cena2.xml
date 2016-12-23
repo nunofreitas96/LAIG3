@@ -59,6 +59,16 @@
         <texture id="frontPanelA" file="../resources/images/alien.jpg" length_s="1" length_t="1"/>
         <texture id="backPanelA" file="../resources/images/space_square.jpg" length_s="1" length_t="1"/>
         <texture id="boardA" file="../resources/images/text_board_crop.jpg" length_s="1" length_t="1"/>
+        <texture id="time1A" file="../resources/images/time1.png" length_s="1" length_t="1"/>
+        <texture id="time2A" file="../resources/images/time2.png" length_s="1" length_t="1"/>
+        <texture id="time3A" file="../resources/images/time3.png" length_s="1" length_t="1"/>
+        <texture id="time4A" file="../resources/images/time4.png" length_s="1" length_t="1"/>
+        <texture id="time5A" file="../resources/images/time5.png" length_s="1" length_t="1"/>
+        <texture id="time6A" file="../resources/images/time6.png" length_s="1" length_t="1"/>
+        <texture id="time7A" file="../resources/images/time7.png" length_s="1" length_t="1"/>
+        <texture id="time8A" file="../resources/images/time8.png" length_s="1" length_t="1"/>
+        <texture id="time9A" file="../resources/images/time9.png" length_s="1" length_t="1"/>
+        <texture id="time0A" file="../resources/images/time0.png" length_s="1" length_t="1"/>
     </textures>
 
     <materials>
@@ -96,8 +106,8 @@
 
         <material id="p2" >
             <emission r="0" g="0" b="0" a="1" />
-            <ambient r="." g="." b="." a="1" />
-            <diffuse r="." g="." b="." a="1" />
+            <ambient r=".278" g=".298" b=".333" a="1" />
+            <diffuse r=".278" g=".298" b=".333" a="1" />
             <specular r=".5" g=".5" b="0.5" a="1" />
             <shininess value="10" />
         </material>
@@ -174,6 +184,7 @@
                 <componentref id='back_panel' />
                 <componentref id='tabuleiro' />
                 <componentref id='horas' />
+                <componentref id='points' />
             </children>
         </component>
 
@@ -205,6 +216,49 @@
                 <componentref id='player2_7' />
                 <componentref id='player1_8' />
                 <componentref id='player2_8' />
+            </children>
+        </component>
+        
+        <component id='points'>
+            <transformation>
+                <translate x='15.5' y='2.5' z='9.5' />
+                <rotate angle='-90' axis='y' />
+                <rotate angle='-90' axis='x' />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id='none' />
+            <children>
+                <componentref id='pointsP1' />
+                <componentref id='pointsP2' />
+            </children>
+        </component>
+        
+        <component id='pointsP1'>
+            <transformation>
+                <scale x='.5' y='1' z='1' />
+            </transformation>
+            <materials>
+                <material id="p1" />
+            </materials>
+            <texture id='time0A' />
+            <children>
+                <primitiveref id='rectangle' />
+            </children>
+        </component>
+        
+        <component id='pointsP2'>
+            <transformation>
+                <translate x='2.5' y='0' z='0' />
+                <scale x='.5' y='1' z='1' />
+            </transformation>
+            <materials>
+                <material id="p2" />
+            </materials>
+            <texture id='time0A' />
+            <children>
+                <primitiveref id='rectangle' />
             </children>
         </component>
         
@@ -258,7 +312,7 @@
                 <scale x='.5' y='1' z='1' />
             </transformation>
             <materials>
-                <material id="inherit" />
+                <material id="p1" />
             </materials>
             <texture id='time0A' />
             <children>

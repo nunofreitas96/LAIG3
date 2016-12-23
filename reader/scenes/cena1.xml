@@ -70,7 +70,6 @@
         <texture id="time8A" file="../resources/images/time8.png" length_s="1" length_t="1"/>
         <texture id="time9A" file="../resources/images/time9.png" length_s="1" length_t="1"/>
         <texture id="time0A" file="../resources/images/time0.png" length_s="1" length_t="1"/>
-        <texture id="time_A" file="../resources/images/time_.png" length_s="1" length_t="1"/>
     </textures>
 
     <materials>
@@ -190,6 +189,7 @@
                 <componentref id='floor' />
                 <componentref id='tabuleiro' />
                 <componentref id='horas' />
+                <componentref id='points' />
             </children>
         </component>
 
@@ -221,6 +221,49 @@
                 <componentref id='player2_7' />
                 <componentref id='player1_8' />
                 <componentref id='player2_8' />
+            </children>
+        </component>
+        
+        <component id='points'>
+            <transformation>
+                <translate x='15.5' y='2.3' z='9.5' />
+                <rotate angle='-90' axis='y' />
+                <rotate angle='-90' axis='x' />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id='none' />
+            <children>
+                <componentref id='pointsP1' />
+                <componentref id='pointsP2' />
+            </children>
+        </component>
+        
+        <component id='pointsP1'>
+            <transformation>
+                <scale x='.5' y='1' z='1' />
+            </transformation>
+            <materials>
+                <material id="p1" />
+            </materials>
+            <texture id='time0A' />
+            <children>
+                <primitiveref id='rectangle' />
+            </children>
+        </component>
+        
+        <component id='pointsP2'>
+            <transformation>
+                <translate x='2.5' y='0' z='0' />
+                <scale x='.5' y='1' z='1' />
+            </transformation>
+            <materials>
+                <material id="p2" />
+            </materials>
+            <texture id='time0A' />
+            <children>
+                <primitiveref id='rectangle' />
             </children>
         </component>
 
@@ -255,18 +298,6 @@
                 <primitiveref id='rectangle' />
             </children>
         </component>
-        <component id='horas_h'>
-            <transformation>
-                <scale x='.5' y='1' z='1' />
-            </transformation>
-            <materials>
-                <material id="inherit" />
-            </materials>
-            <texture id='time_A' />
-            <children>
-                <primitiveref id='rectangle' />
-            </children>
-        </component>
         <component id='horas_2'>
             <transformation>
                 <translate x='.75' y='0' z='0' />
@@ -289,17 +320,6 @@
                 <material id="inherit" />
             </materials>
             <texture id='time0A' />
-            <children>
-                <primitiveref id='rectangle' />
-            </children>
-        </component>
-        <component id='horas_m'>
-            <transformation>
-            </transformation>
-            <materials>
-                <material id="inherit" />
-            </materials>
-            <texture id='time_A' />
             <children>
                 <primitiveref id='rectangle' />
             </children>
