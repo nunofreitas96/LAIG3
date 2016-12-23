@@ -36,6 +36,10 @@ XMLscene.prototype.init = function (application) {
     this.myView = '';
     this.tempCam = null;
     this.elapsedTime = 0;
+    
+    this.status = 'a jogar';
+    this.pointsP1 = 0;
+    this.pointsP2 = 0;
 };
 
 XMLscene.prototype.initLights = function () {
@@ -113,6 +117,19 @@ XMLscene.prototype.update = function (currtime) {
         this.startTime = currtime;
 
     this.elapsedTime = (currtime - this.startTime) / 1000;
+    
+    // TODO sistema de pontos
+    if(Math.floor(this.elapsedTime) == 6){
+        if(this.pointsP1 == this.pointsP2){
+            this.status = 'empate !';
+        }
+        else if(this.pointsP1 > this.pointsP2){
+            this.status = 'P1 ganhou !';        
+        }
+        else{
+            this.status = 'P2 ganhou !';
+        }
+    }
 }
 XMLscene.prototype.processaGrafo= function(nodeName){
 
@@ -302,6 +319,77 @@ XMLscene.prototype.processaGrafo= function(nodeName){
                 }
                 else if(node == this.graph["horas_1"]){
                     switch( Math.floor(Math.floor(this.elapsedTime)/3600) %24 ){
+                        case 1:
+                            texture = this.graph.scene.textures["time1A"];
+                            break;
+                        case 2:
+                            texture = this.graph.scene.textures["time2A"];
+                            break;
+                        case 3:
+                            texture = this.graph.scene.textures["time3A"];
+                            break;
+                        case 4:
+                            texture = this.graph.scene.textures["time4A"];
+                            break;
+                        case 5:
+                            texture = this.graph.scene.textures["time5A"];
+                            break;
+                        case 6:
+                            texture = this.graph.scene.textures["time6A"];
+                            break;
+                        case 7:
+                            texture = this.graph.scene.textures["time7A"];
+                            break;
+                        case 8:
+                            texture = this.graph.scene.textures["time8A"];
+                            break;
+                        case 9:
+                            texture = this.graph.scene.textures["time9A"];
+                            break;
+                        default:
+                            texture = this.graph.scene.textures["time0A"];
+                            break;
+                    }
+                    material.setTexture(texture);
+                }
+                
+                if(node == this.graph["pointsP1"]){
+                    switch( this.pointsP1 ){
+                        case 1:
+                            texture = this.graph.scene.textures["time1A"];
+                            break;
+                        case 2:
+                            texture = this.graph.scene.textures["time2A"];
+                            break;
+                        case 3:
+                            texture = this.graph.scene.textures["time3A"];
+                            break;
+                        case 4:
+                            texture = this.graph.scene.textures["time4A"];
+                            break;
+                        case 5:
+                            texture = this.graph.scene.textures["time5A"];
+                            break;
+                        case 6:
+                            texture = this.graph.scene.textures["time6A"];
+                            break;
+                        case 7:
+                            texture = this.graph.scene.textures["time7A"];
+                            break;
+                        case 8:
+                            texture = this.graph.scene.textures["time8A"];
+                            break;
+                        case 9:
+                            texture = this.graph.scene.textures["time9A"];
+                            break;
+                        default:
+                            texture = this.graph.scene.textures["time0A"];
+                            break;
+                    }
+                    material.setTexture(texture);
+                }
+                else if(node == this.graph["pointsP2"]){
+                    switch( this.pointsP2 ){
                         case 1:
                             texture = this.graph.scene.textures["time1A"];
                             break;
@@ -545,9 +633,4 @@ XMLscene.prototype.undoFunc = function(){
     console.log("Undo done !");
 }
 
-XMLscene.prototype.updateMyTime = function(){
-    console.log("Undoing...");
-    console.log("Undo done !");
-    console.log(this.elapsedTime);
-    return this.elapsedTime;
-}
+

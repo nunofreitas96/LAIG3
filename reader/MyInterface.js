@@ -21,6 +21,7 @@ MyInterface.prototype.init = function(application) {
     this.type = 0;
     var Controls = function() {
         this.time = 0;
+        this.status = 'a jogar'
     };
     var controls = new Controls();
     var cena = this.scene;
@@ -43,12 +44,14 @@ MyInterface.prototype.init = function(application) {
     this.Options.add(this.scene, 'undoFunc');
     this.Options.add(this, 'camera', { p1: 0, right: 1, p2: 2 , left: 3});
     this.Options.add(controls, 'time').listen();
+    this.Options.add(controls, 'status').listen();
     this.Options.open();
     
     
     var update = function() {
         requestAnimationFrame(update);
         controls.time = cena.elapsedTime;
+        controls.status = cena.status;
     };
     update();
 
