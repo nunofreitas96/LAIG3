@@ -119,17 +119,21 @@ XMLscene.prototype.update = function (currtime) {
     this.elapsedTime = (currtime - this.startTime) / 1000;
     
     // TODO sistema de pontos
+    
     if(Math.floor(this.elapsedTime) == 6){
         if(this.pointsP1 == this.pointsP2){
             this.status = 'empate !';
         }
         else if(this.pointsP1 > this.pointsP2){
-            this.status = 'P1 ganhou !';        
+            this.status = 'P1 ganhou !';
         }
         else{
             this.status = 'P2 ganhou !';
         }
     }
+    // TODO terminar o jogo: nao deixar fazer mais jogadas
+    if(Math.floor(this.elapsedTime) >= 6)
+        this.elapsedTime = 6;
 }
 XMLscene.prototype.processaGrafo= function(nodeName){
 
