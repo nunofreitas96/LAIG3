@@ -152,6 +152,189 @@ XMLscene.prototype.processaGrafo= function(nodeName){
                 length_s = this.texSizes[this.myTextures[this.myTextures.length -1]][1];
                 material.setTexture(texture);
                 confirmer = 1;
+                if(node == this.graph["horas_5"]){
+                    //console.log("AQUIAQUIAQUI "+ Math.floor(this.elapsedTime) +"   "+this.graph["horas_1"].material);
+                    /*
+                    if(Math.floor(this.elapsedTime) % 60 == 2){
+                        console.log("OLA")
+                        texture = this.graph.scene.textures["time2A"];
+                        material.setTexture(texture);
+                    }
+                    */
+                    switch(Math.floor(this.elapsedTime) % 10 ){
+                        case 1:
+                            texture = this.graph.scene.textures["time1A"];
+                            break;
+                        case 2:
+                            texture = this.graph.scene.textures["time2A"];
+                            break;
+                        case 3:
+                            texture = this.graph.scene.textures["time3A"];
+                            break;
+                        case 4:
+                            texture = this.graph.scene.textures["time4A"];
+                            break;
+                        case 5:
+                            texture = this.graph.scene.textures["time5A"];
+                            break;
+                        case 6:
+                            texture = this.graph.scene.textures["time6A"];
+                            break;
+                        case 7:
+                            texture = this.graph.scene.textures["time7A"];
+                            break;
+                        case 8:
+                            texture = this.graph.scene.textures["time8A"];
+                            break;
+                        case 9:
+                            texture = this.graph.scene.textures["time9A"];
+                            break;
+                        default:
+                            texture = this.graph.scene.textures["time0A"];
+                            break;
+                    }
+                    material.setTexture(texture);
+                }
+                else if(node == this.graph["horas_4"]){
+                    switch( Math.floor(Math.floor(this.elapsedTime)/10) % 6 ){
+                        case 1:
+                            texture = this.graph.scene.textures["time1A"];
+                            break;
+                        case 2:
+                            texture = this.graph.scene.textures["time2A"];
+                            break;
+                        case 3:
+                            texture = this.graph.scene.textures["time3A"];
+                            break;
+                        case 4:
+                            texture = this.graph.scene.textures["time4A"];
+                            break;
+                        case 5:
+                            texture = this.graph.scene.textures["time5A"];
+                            break;
+                        case 6:
+                            texture = this.graph.scene.textures["time6A"];
+                            break;
+                        case 7:
+                            texture = this.graph.scene.textures["time7A"];
+                            break;
+                        case 8:
+                            texture = this.graph.scene.textures["time8A"];
+                            break;
+                        case 9:
+                            texture = this.graph.scene.textures["time9A"];
+                            break;
+                        default:
+                            texture = this.graph.scene.textures["time0A"];
+                            break;
+                    }
+                    material.setTexture(texture);
+                }
+                else if(node == this.graph["horas_3"]){
+                    switch( Math.floor(Math.floor(this.elapsedTime)/60) ){
+                        case 1:
+                            texture = this.graph.scene.textures["time1A"];
+                            break;
+                        case 2:
+                            texture = this.graph.scene.textures["time2A"];
+                            break;
+                        case 3:
+                            texture = this.graph.scene.textures["time3A"];
+                            break;
+                        case 4:
+                            texture = this.graph.scene.textures["time4A"];
+                            break;
+                        case 5:
+                            texture = this.graph.scene.textures["time5A"];
+                            break;
+                        case 6:
+                            texture = this.graph.scene.textures["time6A"];
+                            break;
+                        case 7:
+                            texture = this.graph.scene.textures["time7A"];
+                            break;
+                        case 8:
+                            texture = this.graph.scene.textures["time8A"];
+                            break;
+                        case 9:
+                            texture = this.graph.scene.textures["time9A"];
+                            break;
+                        default:
+                            texture = this.graph.scene.textures["time0A"];
+                            break;
+                    }
+                    material.setTexture(texture);
+                }
+                else if(node == this.graph["horas_2"]){
+                    switch( Math.floor(Math.floor(this.elapsedTime)/600) %6 ){
+                        case 1:
+                            texture = this.graph.scene.textures["time1A"];
+                            break;
+                        case 2:
+                            texture = this.graph.scene.textures["time2A"];
+                            break;
+                        case 3:
+                            texture = this.graph.scene.textures["time3A"];
+                            break;
+                        case 4:
+                            texture = this.graph.scene.textures["time4A"];
+                            break;
+                        case 5:
+                            texture = this.graph.scene.textures["time5A"];
+                            break;
+                        case 6:
+                            texture = this.graph.scene.textures["time6A"];
+                            break;
+                        case 7:
+                            texture = this.graph.scene.textures["time7A"];
+                            break;
+                        case 8:
+                            texture = this.graph.scene.textures["time8A"];
+                            break;
+                        case 9:
+                            texture = this.graph.scene.textures["time9A"];
+                            break;
+                        default:
+                            texture = this.graph.scene.textures["time0A"];
+                            break;
+                    }
+                    material.setTexture(texture);
+                }
+                else if(node == this.graph["horas_1"]){
+                    switch( Math.floor(Math.floor(this.elapsedTime)/3600) %24 ){
+                        case 1:
+                            texture = this.graph.scene.textures["time1A"];
+                            break;
+                        case 2:
+                            texture = this.graph.scene.textures["time2A"];
+                            break;
+                        case 3:
+                            texture = this.graph.scene.textures["time3A"];
+                            break;
+                        case 4:
+                            texture = this.graph.scene.textures["time4A"];
+                            break;
+                        case 5:
+                            texture = this.graph.scene.textures["time5A"];
+                            break;
+                        case 6:
+                            texture = this.graph.scene.textures["time6A"];
+                            break;
+                        case 7:
+                            texture = this.graph.scene.textures["time7A"];
+                            break;
+                        case 8:
+                            texture = this.graph.scene.textures["time8A"];
+                            break;
+                        case 9:
+                            texture = this.graph.scene.textures["time9A"];
+                            break;
+                        default:
+                            texture = this.graph.scene.textures["time0A"];
+                            break;
+                    }
+                    material.setTexture(texture);
+                }
             }
         }
 
@@ -352,7 +535,7 @@ XMLscene.prototype.changeScene = function(){
             this.fileNo = 0;
             break;
     }
-
+    
     this.graph.reader.open('scenes/'+filename, this.graph);
     console.log("Changed to other scene !");
 }

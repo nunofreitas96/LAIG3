@@ -9,6 +9,8 @@ MyInterface.prototype.init = function(application) {
 	// call CGFinterface init
 	CGFinterface.prototype.init.call(this, application);
     
+    this.myElements = [];
+    
     
 
 	this.gui = new dat.GUI();
@@ -23,12 +25,17 @@ MyInterface.prototype.init = function(application) {
     var controls = new Controls();
     var cena = this.scene;
     
+    
+    //this.Lights.remove();
+    
 	this.Lights = this.gui.addFolder("Lights");
 	this.Lights.open();
     
     this.Scenes = this.gui.addFolder("Scenes");
     this.Scenes.add(this.scene, 'changeScene');
     this.Scenes.open();
+    
+    
     
     this.Options = this.guiControls.addFolder("Options");
     this.Options.add(this, 'difficulty', 1, 3).step(1);
@@ -49,7 +56,7 @@ MyInterface.prototype.init = function(application) {
 };
 
 MyInterface.prototype.lightBox = function(i,id){
-	this.Lights.add(this.scene.enableLight,i,this.scene.enableLight[i]).name(id);
+	this.myElements.push( this.Lights.add(this.scene.enableLight,i,this.scene.enableLight[i]).name(id) );
 }
 
 MyInterface.prototype.processKeyboard = function(event){
