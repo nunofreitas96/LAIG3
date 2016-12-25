@@ -112,6 +112,8 @@ parse_input(test(C,N), Res) :- test(C,Res,N).
 parse_input(quit, goodbye).
 parse_input(board, B):- board(B).
 parse_input(movePiece(B,Yi,Xi,Dx,Dy),NB):- movePiece(B,Yi,Xi,Dx,Dy,NB,_).
+parse_input(checkLose(B,Node),victory):-checkLose(B,Node).
+parse_input(checkLose(_,_),not_finished).
 
 test(_,[],N) :- N =< 0.
 test(A,[A|Bs],N) :- N1 is N-1, test(A,Bs,N1).

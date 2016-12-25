@@ -50,6 +50,8 @@ checkLose(B, Node):-
 	Col2 is Col -1,
 	(Col2 >= 0 -> (index(B, Row, Col2, Enemy); index(B, Row, Col2, '-'));true),
 	write(Node), write(' Loses'), nl .
+	
+
 
 %possible_moves(Board, Xcoord, Ycoord, List of Pairs).
 %List of Pairs has the coordinates to where the unit can go
