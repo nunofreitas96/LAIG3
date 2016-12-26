@@ -27,6 +27,8 @@ serialInclude([ '../lib/CGF.js',
                 'MyLinearAnimation.js',
                 'MyAnimation.js',
                 'MyCircularAnimation.js',
+				'PlogCom.js',
+				'MyBoard.js',
 
 
 main=function()
@@ -51,7 +53,11 @@ main=function()
   // create and load graph, and associate it to scene.
   // Check console for loading errors
   var myGraph = new MySceneGraph(filename, myScene);
-
+  
+  //var response = new getPrologRequest('board');
+  console.log("u there?")
+  |//var myBoard = new MyBoard(myScene);
+   console.log("u there2?")
   // start
   app.run();
 }

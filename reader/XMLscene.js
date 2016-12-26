@@ -32,7 +32,7 @@ XMLscene.prototype.init = function (application) {
     this.anim2 = new MyCircularAnimation(this,"aiai2", 5, [0,0,0],InitialAngle,RotationAngle,1);
     this.myMaterials = [];
     this.myTextures = [];
-
+	
     this.myView = '';
     this.tempCam = null;
     this.elapsedTime = 0;
@@ -40,6 +40,7 @@ XMLscene.prototype.init = function (application) {
     this.status = 'a jogar';
     this.pointsP1 = 0;
     this.pointsP2 = 0;
+	
 };
 
 XMLscene.prototype.initLights = function () {
