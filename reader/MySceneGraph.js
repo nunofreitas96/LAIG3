@@ -617,6 +617,20 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement){
 				var rectangle = new MyQuad(this.scene, parseInt(this.scene.primitives[i][2]),parseInt(this.scene.primitives[i][4]),parseInt(this.scene.primitives[i][3]),parseInt(this.scene.primitives[i][5]));
 				this.primitives[e.id] = rectangle;
 			}
+            else if (f.tagName == "circle") {
+				this.primitives[i] = this.scene.primitives[i];
+				console.log("\tprimitive "+this.scene.primitives[i][0]+" ("+this.scene.primitives[i][1]+")");
+
+				var circle = new MyCircle(this.scene);
+				this.primitives[e.id] = circle;
+			}
+            else if (f.tagName == "board") {
+				this.primitives[i] = this.scene.primitives[i];
+				console.log("\tprimitive "+this.scene.primitives[i][0]+" ("+this.scene.primitives[i][1]+")");
+
+				var board = new MyBoard(this.scene);
+				this.primitives[e.id] = board;
+			}
 			else if (f.tagName == "triangle") {
 				this.scene.primitives[i][2] = f.attributes.getNamedItem("x1").value;
 				this.scene.primitives[i][3] = f.attributes.getNamedItem("y1").value;
