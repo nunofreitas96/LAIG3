@@ -1040,9 +1040,9 @@ MySceneGraph.prototype.buildGraph = function(){
 		//console.log("\t\tchildren: "+this.scene.components[i].children.length);
 
 		this[no].animations = this.scene.components[i].animation;
-		console.log("start search:");
-		console.log(this.scene.components[i].animation);
-		console.log(this[no].animations);
+		//console.log("start search:");
+		//console.log(this.scene.components[i].animation);
+		//console.log(this[no].animations);
 		for (var j = 0; j < this.scene.components[i].children.length; j++) {
 			//console.log("\t\t"+this.scene.components[i].children[j]);
 			//console.log("\t\t\t"+this.scene.components[i].children[j][0]);

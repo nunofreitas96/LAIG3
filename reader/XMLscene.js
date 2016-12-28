@@ -139,6 +139,31 @@ XMLscene.prototype.init = function (application) {
             new MyCircle(this)
         ]
 	];
+    
+    this.objectPlayers = [
+        [
+            new MySphere(this,1,100,100),
+            new MySphere(this,1,100,100),
+            new MySphere(this,1,100,100),
+            new MySphere(this,1,100,100),
+            new MySphere(this,1,100,100),
+            new MySphere(this,1,100,100),
+            new MySphere(this,1,100,100),
+            new MySphere(this,1,100,100),
+            new MySphere(this,1,100,100)
+        ],
+        [
+            new MySphere(this,1,100,100),
+            new MySphere(this,1,100,100),
+            new MySphere(this,1,100,100),
+            new MySphere(this,1,100,100),
+            new MySphere(this,1,100,100),
+            new MySphere(this,1,100,100),
+            new MySphere(this,1,100,100),
+            new MySphere(this,1,100,100),
+            new MySphere(this,1,100,100)
+        ]
+    ];
    
     this.gameBoard = new MyGameBoard(this);
 	
@@ -592,7 +617,9 @@ XMLscene.prototype.processaGrafo= function(nodeName){
             }
 
             this.graph.primitives[node.primitive].display();
-            //console.log("AQUIIIIIIIII "+this.graph.primitives[node.primitive].arr);
+            
+            
+            //console.log("AQUIIIIIIIII "+this.graph.primitives[node.primitive]);
             this.popMatrix();
             this.myMaterials.pop();
             this.myTextures.pop();
@@ -764,6 +791,71 @@ XMLscene.prototype.display = function () {
                 count++;
             }
         }
+        
+        //console.log("AQUIIIIIIIIIIIII "+this.objectPlayers.length);
+        
+        this.translate(0, .18, 0);
+        count=1;
+        var l=0,o=1;
+        for(var m=0; m<this.objectPlayers.length; m++){
+            l=1;
+            for(var n=0;n<this.objectPlayers[m].length; n++){
+                this.pushMatrix();
+                
+                if(m==0){   //p1
+                    if(n<=4){
+                        this.translate(n*.665, 0, 0);
+                    }
+                    else if(n<=7){
+                        this.translate(l*.665, 0, .67);
+                        l++;
+                    }
+                    else{
+                        this.translate(2*.665, 0, 2*.67);
+                    }
+                    this.myMaterial = this.graph.materials['p1'];
+                    this.myMaterial.apply();
+                }
+                else{       //p2
+                    this.myMaterial = this.graph.materials['p2'];
+                    this.myMaterial.apply();
+                    this.translate(0, 0, 6*.67);
+                    if(n==0){
+                        this.translate(2*.665, 0, 0);
+                    }
+                    else if(n<=3){
+                        this.translate(o*.665, 0, .67);
+                        o++;
+                    }
+                    else{
+                        this.translate((n-4)*.665, 0, 2*.67);
+                    }
+                }
+                
+                if(n==2 && m==0){
+                    this.translate(0, .1, 0);
+                    this.scale(.3,.3,.3);
+                }
+                else if(n==6 && m==1){
+                    this.translate(0, .1, 0);
+                    this.scale(.3,.3,.3);
+                }
+                else{
+                    this.scale(.2,.2,.2);
+                }
+                    
+                
+                this.rotate(-Math.PI/2, 1, 0 ,0);
+                this.registerForPick(100+count, this.objectPlayers[m][n]);
+
+                
+                this.objectPlayers[m][n].display();
+                this.popMatrix();
+                count++;
+            }
+        }
+        
+        
         
         
     };

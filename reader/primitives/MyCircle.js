@@ -6,7 +6,7 @@
 function MyCircle(scene) {
 	CGFobject.call(this,scene);
     
-    //this.arr = [0,1];
+    this.arr = [0,1];
 
 	this.initBuffers();
 };
