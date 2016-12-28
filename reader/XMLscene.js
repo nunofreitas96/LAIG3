@@ -213,6 +213,9 @@ XMLscene.prototype.init = function (application) {
     
     this.animationPlayers = [null, new MyPieceAnimation(this, 2, 2, 'N'), new MyPieceAnimation(this, 2, 2, 'S'), new MyPieceAnimation(this, 2, 2, 'E'), new MyPieceAnimation(this, 2, 2, 'W')];
 	
+    this.count=0;
+    this.ppp_1 = [[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0]];
+    this.ppp_2 = [[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0]];
     this.setPickEnabled(true);
 };
 
@@ -803,7 +806,7 @@ XMLscene.prototype.changeView = function (cam) {
 
 
 XMLscene.prototype.display = function () {
-    var p, pp, pp_1, pp_2, ppp;
+    var p, pp, pp_1, pp_2;
     // ---- BEGIN Background, camera and axis setup
     
     this.logPicking();
@@ -912,7 +915,73 @@ XMLscene.prototype.display = function () {
                     pp = this.map[p];
                     pp_1 = Math.floor(pp/10)-1;
                     pp_2 = (pp % 10)-3;
-                    this.translate(pp_2*.665, 0, pp_1*.67);
+                    //this.translate(pp_2*.665, 0, pp_1*.67);
+                    
+                    switch(this.mapAnimations[p]){
+                        case 0:
+                            //this.pushMatrix();
+                            this.translate(pp_2*.665, 0, pp_1*.67);
+                            //this.popMatrix();
+                            this.ppp_1[m][n] = pp_1;
+                            this.ppp_2[m][n] = pp_2;
+                            //console.log("zzz "+this.ppp_1[m][n]+" "+this.ppp_2[m][n]+" "+pp_1+" "+pp_2);
+                            break;
+                        case 1:
+                            console.log("NORTE");
+                            if(this.ppp_1[m][n] != pp_1){
+                                this.ppp_1[m][n] -= .05;
+                                this.ppp_1[m][n] = Math.round(this.ppp_1[m][n] * 100) / 100;
+                                console.log( Math.round(this.ppp_1[m][n] * 100) / 100);
+                                this.count+=.005;
+                                this.translate(pp_2*.665, 0, this.ppp_1[m][n]*.67);
+                            }
+                            else{
+                                this.mapAnimations[p] = 0;
+                            }
+                            break;
+                        case 2:
+                            console.log('SUL pp_1:'+pp_1+" ppp_1:"+this.ppp_1[m][n]);
+                            if(this.ppp_1[m][n] != pp_1){
+                                this.ppp_1[m][n] += .05;
+                                this.ppp_1[m][n] = Math.round(this.ppp_1[m][n] * 100) / 100;
+                                console.log( Math.round(this.ppp_1[m][n] * 100) / 100);
+                                this.count+=.005;
+                                this.translate(pp_2*.665, 0, this.ppp_1[m][n]*.67);
+                            }
+                            else{
+                                this.mapAnimations[p] = 0;
+                            }
+                            //console.log('SUL__ pp_1:'+pp_1+" ppp_1:"+this.ppp_1[m][n]);
+                            break;
+                        case 3:
+                            console.log('ESTE');
+                            if(this.ppp_2[m][n] != pp_2){
+                                this.ppp_2[m][n] += .05;
+                                this.ppp_2[m][n] = Math.round(this.ppp_2[m][n] * 100) / 100;
+                                console.log( Math.round(this.ppp_2[m][n] * 100) / 100);
+                                this.count+=.005;
+                                this.translate(this.ppp_2[m][n]*.665, 0, pp_1*.67);
+                            }
+                            else{
+                                this.mapAnimations[p] = 0;
+                            }
+                            break;
+                        case 4:
+                            console.log('OESTE');
+                            if(this.ppp_2[m][n] != pp_2){
+                                this.ppp_2[m][n] -= .05;
+                                this.ppp_2[m][n] = Math.round(this.ppp_2[m][n] * 100) / 100;
+                                console.log( Math.round(this.ppp_2[m][n] * 100) / 100);
+                                this.count+=.005;
+                                this.translate(this.ppp_2[m][n]*.665, 0, pp_1*.67);
+                            }
+                            else{
+                                this.mapAnimations[p] = 0;
+                            }
+                            break;
+                    }
+                    
+                    
                     /*
                     if(n<=4){
                         this.translate(n*.665, 0, 0);
@@ -1000,7 +1069,7 @@ XMLscene.prototype.display = function () {
                 this.objectPlayers[m][n].display();
                 this.popMatrix();
                 count++;
-                this.mapAnimations[p] = 0;
+                //this.mapAnimations[p] = 0;
             }
         }
         
