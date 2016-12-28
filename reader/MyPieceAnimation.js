@@ -1,7 +1,7 @@
-function MyPieceAnimation(scene, id, time, nSquares, dir) {
+function MyPieceAnimation(scene, time, nSquares, dir) {
 	MyAnimation.call(this);
 	this.scene = scene;
-	this.id = id;
+	//this.id = id;
 	this.time = time;
 	this.nSquares = nSquares;
 	this.dir = dir;
@@ -37,19 +37,27 @@ MyPieceAnimation.prototype.apply = function(time) {
 	currDist = this.speed * time;
 	//TODO ver se isto dá bem de acordo com o tabuleiro
 	switch(this.dir){
-		case "N": this.scene.translate(currDist,0,0);
+		case "N": 
+            //this.scene.translate(currDist,0,0);
+            this.scene.translate(0,0,-currDist);
 			break;
 		case "NE": this.scene.translate(currDist,0,currDist);
 			break;
-		case "E": this.scene.translate(0,0,currDist);
+		case "E": 
+            //this.scene.translate(0,0,currDist);
+            this.scene.translate(currDist,0,0);
 			break;
 		case "SE": this.scene.translate(currDist,0,currDist);
 			break;
-		case "S": this.scene.translate(-currDist,0,0);
+		case "S": 
+            //this.scene.translate(-currDist,0,0);
+            this.scene.translate(0,0,currDist);
 			break;
 		case "SW": this.scene.translate(currDist,0,-currDist);
 			break;
-		case "W": this.scene.translate(0,0,-currDist);
+		case "W": 
+            //this.scene.translate(0,0,-currDist);
+            this.scene.translate(-currDist,0,0);
 			break;
 		case "NW": this.scene.translate(currDist,0,-currDist);
 			break;
