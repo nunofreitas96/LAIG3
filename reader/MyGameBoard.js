@@ -37,6 +37,18 @@ MyGameBoard.prototype.getPrologRequest = function(requestString, onSuccess, onEr
 						gBoard.parseBoard(gBoard.boardString);
 					}
 					
+					
+					if(requestString.substring(0,9) == "moveCheck" && response == "1"){
+						var subRequest = requestString.substring(requestString.indexOf("(")+1,requestString.indexOf(")"));
+						
+						subSubRequest = subRequest.substring(subRequest.indexOf("]]")+3,subRequest.length);
+						console.log(subRequest);
+						var list = subSubRequest.split(",");
+						console.log(list);
+						gBoard.confirmMove(list[0],list[1],list[2],list[3]);
+						
+					}
+					
 					};
 				request.onerror = onError || function(){console.log("Error waiting for response");};
 
@@ -63,10 +75,69 @@ MyGameBoard.prototype.parseBoard = function(plBoard){
 	}
 	console.log(lines);
 	console.log(board);
+	this.board = board;
+	this.setNewBS();
 	
+	var prSentence = "moveCheck(" + this.boardString + ",4,2,4,3)";
+	this.getPrologRequest(prSentence);
 	
 	//console.log(lines);
+	//this.confirmMove(4,2,4,3);
+	
+}
+
+MyGameBoard.prototype.setNewBS = function(){
+	
+	var bString = "[";
+	
+	for(var i = 0; i < this.board.length; i++){
+		bString += "[";
+		if(i == this.board.length-1 || i ==0){
+			bString += "-,-,";
+		}
+		if(i == this.board.length-2 || i ==1){
+			bString += "-,";
+		}
+		for(var j =0; j < this.board[i].length; j++){
+			
+			if(j != this.board[i].length-1){
+			bString += this.board[i][j] + ",";}
+			else{
+				bString += this.board[i][j];
+			}
+			
+		}
+		if(i == this.board.length-1 || i ==0){
+			bString += ",-,-";
+		}
+		if(i == this.board.length-2 || i ==1){
+			bString += ",-";
+		}
+		if(i == this.board.length-1){
+		bString += "]";}else
+		bString += "],";
+	}
+	
+	bString += "]"
+	console.log(bString);
+	this.boardString = bString;
+	//var aioq = this.boardString.split(",");
+	//console.log("testeteste")
+	//console.log(aioq);
+}
+
+MyGameBoard.prototype.confirmMove = function(X,Y,NX,NY){
+	
+	console.log("move confirmed, new coordinates :");
+	console.log(NX);
+	console.log(NY);
+	
+	this.board[NY][NX] = this.board[Y][X];
+	this.board[Y][X] = "o";
+	
+	console.log(this.board);
+	this.setNewBS();
+	//função pa mexer no board
 	
 	
 }
-		
