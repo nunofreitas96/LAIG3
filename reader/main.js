@@ -30,7 +30,7 @@ serialInclude([ '../lib/CGF.js',
                 'MyAnimation.js',
                 'MyCircularAnimation.js',
 				'PlogCom.js',
-				'MyBoard.js',
+				'MyGameBoard.js',
 
 
 main=function()

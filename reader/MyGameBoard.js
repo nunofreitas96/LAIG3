@@ -5,7 +5,7 @@ function MyGameBoard(scene){
 	this.initialized = false;
 	this.ended = false;
 	
-	this.boardString;
+	this.boardString = "placeholder";
 	
 	this.board= "placeholder"
 	
@@ -13,20 +13,18 @@ function MyGameBoard(scene){
 	
 	this.getPrologRequest("board");
 	
-	//console.log(boradLines);
-	
 	
 }
 
-MyGameBoard.prototype = Object.create(CGFobject.prototype);
+MyGameBoard.prototype = Object.create(MyGameBoard.prototype);
 MyGameBoard.prototype.constructor= MyGameBoard;
 
 MyGameBoard.prototype.getPrologRequest = function(requestString, onSuccess, onError, port){
-				
+				var gBoard = this;
 				var requestPort = port || 8081
 				var request = new XMLHttpRequest();
 				request.open('GET', 'http://localhost:'+requestPort+'/'+requestString, true);
-
+				
 				request.onload = onSuccess || function(data){
 					console.log("Request successful. Reply: " + data.target.response);
 					var response = data.target.response;
@@ -34,9 +32,9 @@ MyGameBoard.prototype.getPrologRequest = function(requestString, onSuccess, onEr
 					
 					if(requestString == "board"){
 						console.log("machadinha");
-						this.boardString = response;
-						console.log(this.boardString);
-						this.parseBoard(this.boardString);
+						gBoard.boardString = response;
+						console.log(gBoard.boardString);
+						gBoard.parseBoard(gBoard.boardString);
 					}
 					
 					};
@@ -53,8 +51,21 @@ MyGameBoard.prototype.parseBoard = function(plBoard){
 	plBoard = plBoard.substring(plBoard.indexOf("[")+1, plBoard.lastIndexOf("]"));
  	plBoard = plBoard.replace(/\]\,/g, "\|\]\,").replace(/\]$/, "\|\]");
  	var lines = plBoard.match(/\[(.*?)\|/g);
+ 	var board = [];
 	
+	for (var i = 0; i < lines.length; i++) {
+	//var trueline = JSON.parse(lines[i]);
+	
+	
+	
+	board.push(lines[i].match(/(\w|-\w+)/g));
+	
+	}
 	console.log(lines);
+	console.log(board);
+	
+	
+	//console.log(lines);
 	
 	
 }

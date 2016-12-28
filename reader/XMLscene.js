@@ -140,7 +140,8 @@ XMLscene.prototype.init = function (application) {
         ]
 	];
    
-    
+    this.gameBoard = new MyGameBoard(this);
+	
     this.setPickEnabled(true);
 };
 
