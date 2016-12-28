@@ -899,7 +899,6 @@ XMLscene.prototype.display = function () {
             }
         }
         
-        //console.log("AQUIIIIIIIIIIIII "+this.objectPlayers.length);
         
         this.translate(0, .18, 0);
         count=1;
@@ -915,7 +914,78 @@ XMLscene.prototype.display = function () {
                     pp = this.map[p];
                     pp_1 = Math.floor(pp/10)-1;
                     pp_2 = (pp % 10)-3;
-                    //this.translate(pp_2*.665, 0, pp_1*.67);
+                    
+                    switch(this.mapAnimations[p]){
+                        case 0:
+                            this.translate(pp_2*.665, 0, pp_1*.67);
+                            this.ppp_1[m][n] = pp_1;
+                            this.ppp_2[m][n] = pp_2;
+                            break;
+                        case 1:
+                            //console.log("NORTE");
+                            if(this.ppp_1[m][n] != pp_1){
+                                this.ppp_1[m][n] -= .05;
+                                this.ppp_1[m][n] = Math.round(this.ppp_1[m][n] * 100) / 100;
+                                //console.log( Math.round(this.ppp_1[m][n] * 100) / 100);
+                                this.count+=.005;
+                                this.translate(pp_2*.665, 0, this.ppp_1[m][n]*.67);
+                            }
+                            else{
+                                this.mapAnimations[p] = 0;
+                            }
+                            break;
+                        case 2:
+                            //console.log('SUL pp_1:'+pp_1+" ppp_1:"+this.ppp_1[m][n]);
+                            if(this.ppp_1[m][n] != pp_1){
+                                this.ppp_1[m][n] += .05;
+                                this.ppp_1[m][n] = Math.round(this.ppp_1[m][n] * 100) / 100;
+                                //console.log( Math.round(this.ppp_1[m][n] * 100) / 100);
+                                this.count+=.005;
+                                this.translate(pp_2*.665, 0, this.ppp_1[m][n]*.67);
+                            }
+                            else{
+                                this.mapAnimations[p] = 0;
+                            }
+                            //console.log('SUL__ pp_1:'+pp_1+" ppp_1:"+this.ppp_1[m][n]);
+                            break;
+                        case 3:
+                            //console.log('ESTE');
+                            if(this.ppp_2[m][n] != pp_2){
+                                this.ppp_2[m][n] += .05;
+                                this.ppp_2[m][n] = Math.round(this.ppp_2[m][n] * 100) / 100;
+                                //console.log( Math.round(this.ppp_2[m][n] * 100) / 100);
+                                this.count+=.005;
+                                this.translate(this.ppp_2[m][n]*.665, 0, pp_1*.67);
+                            }
+                            else{
+                                this.mapAnimations[p] = 0;
+                            }
+                            break;
+                        case 4:
+                            //console.log('OESTE');
+                            if(this.ppp_2[m][n] != pp_2){
+                                this.ppp_2[m][n] -= .05;
+                                this.ppp_2[m][n] = Math.round(this.ppp_2[m][n] * 100) / 100;
+                                //console.log( Math.round(this.ppp_2[m][n] * 100) / 100);
+                                this.count+=.005;
+                                this.translate(this.ppp_2[m][n]*.665, 0, pp_1*.67);
+                            }
+                            else{
+                                this.mapAnimations[p] = 0;
+                            }
+                            break;
+                    }
+                    this.myMaterial = this.graph.materials['p1'];
+                    this.myMaterial.apply();
+                }
+                else{       //p2
+                    this.myMaterial = this.graph.materials['p2'];
+                    this.myMaterial.apply();
+                    
+                    p=110+n;
+                    pp = this.map[p];
+                    pp_1 = Math.floor(pp/10)-1;
+                    pp_2 = (pp % 10)-3;
                     
                     switch(this.mapAnimations[p]){
                         case 0:
@@ -927,11 +997,11 @@ XMLscene.prototype.display = function () {
                             //console.log("zzz "+this.ppp_1[m][n]+" "+this.ppp_2[m][n]+" "+pp_1+" "+pp_2);
                             break;
                         case 1:
-                            console.log("NORTE");
+                            //console.log("NORTE");
                             if(this.ppp_1[m][n] != pp_1){
                                 this.ppp_1[m][n] -= .05;
                                 this.ppp_1[m][n] = Math.round(this.ppp_1[m][n] * 100) / 100;
-                                console.log( Math.round(this.ppp_1[m][n] * 100) / 100);
+                                //console.log( Math.round(this.ppp_1[m][n] * 100) / 100);
                                 this.count+=.005;
                                 this.translate(pp_2*.665, 0, this.ppp_1[m][n]*.67);
                             }
@@ -940,11 +1010,11 @@ XMLscene.prototype.display = function () {
                             }
                             break;
                         case 2:
-                            console.log('SUL pp_1:'+pp_1+" ppp_1:"+this.ppp_1[m][n]);
+                            //console.log('SUL pp_1:'+pp_1+" ppp_1:"+this.ppp_1[m][n]);
                             if(this.ppp_1[m][n] != pp_1){
                                 this.ppp_1[m][n] += .05;
                                 this.ppp_1[m][n] = Math.round(this.ppp_1[m][n] * 100) / 100;
-                                console.log( Math.round(this.ppp_1[m][n] * 100) / 100);
+                                //console.log( Math.round(this.ppp_1[m][n] * 100) / 100);
                                 this.count+=.005;
                                 this.translate(pp_2*.665, 0, this.ppp_1[m][n]*.67);
                             }
@@ -954,11 +1024,11 @@ XMLscene.prototype.display = function () {
                             //console.log('SUL__ pp_1:'+pp_1+" ppp_1:"+this.ppp_1[m][n]);
                             break;
                         case 3:
-                            console.log('ESTE');
+                            //console.log('ESTE');
                             if(this.ppp_2[m][n] != pp_2){
                                 this.ppp_2[m][n] += .05;
                                 this.ppp_2[m][n] = Math.round(this.ppp_2[m][n] * 100) / 100;
-                                console.log( Math.round(this.ppp_2[m][n] * 100) / 100);
+                                //console.log( Math.round(this.ppp_2[m][n] * 100) / 100);
                                 this.count+=.005;
                                 this.translate(this.ppp_2[m][n]*.665, 0, pp_1*.67);
                             }
@@ -967,11 +1037,11 @@ XMLscene.prototype.display = function () {
                             }
                             break;
                         case 4:
-                            console.log('OESTE');
+                            //console.log('OESTE');
                             if(this.ppp_2[m][n] != pp_2){
                                 this.ppp_2[m][n] -= .05;
                                 this.ppp_2[m][n] = Math.round(this.ppp_2[m][n] * 100) / 100;
-                                console.log( Math.round(this.ppp_2[m][n] * 100) / 100);
+                                //console.log( Math.round(this.ppp_2[m][n] * 100) / 100);
                                 this.count+=.005;
                                 this.translate(this.ppp_2[m][n]*.665, 0, pp_1*.67);
                             }
@@ -980,45 +1050,6 @@ XMLscene.prototype.display = function () {
                             }
                             break;
                     }
-                    
-                    
-                    /*
-                    if(n<=4){
-                        this.translate(n*.665, 0, 0);
-                    }
-                    else if(n<=7){
-                        this.translate(l*.665, 0, .67);
-                        l++;
-                    }
-                    else{
-                        this.translate(2*.665, 0, 2*.67);
-                    }
-                    */
-                    this.myMaterial = this.graph.materials['p1'];
-                    this.myMaterial.apply();
-                }
-                else{       //p2
-                    this.myMaterial = this.graph.materials['p2'];
-                    this.myMaterial.apply();
-                    //this.translate(0, 0, 6*.67);
-                    
-                    p=110+n;
-                    pp = this.map[p];
-                    pp_1 = Math.floor(pp/10)-1;
-                    pp_2 = (pp % 10)-3;
-                    this.translate(pp_2*.665, 0, pp_1*.67);
-                    /*
-                    if(n==0){
-                        this.translate(2*.665, 0, 0);
-                    }
-                    else if(n<=3){
-                        this.translate(o*.665, 0, .67);
-                        o++;
-                    }
-                    else{
-                        this.translate((n-4)*.665, 0, 2*.67);
-                    }
-                    */
                 }
                 
                 if(n==2 && m==0){
@@ -1042,34 +1073,9 @@ XMLscene.prototype.display = function () {
                 else{
                     p=110+n;
                 }
-                /*
-                if(this.animationPlayers[this.mapAnimations[p]] != null){
-                    this.animationPlayers[this.mapAnimations[p]].apply(this.elapsedTime);
-                }
-                */
-                //console.log("PECA "+p+" "+this.mapAnimations[p]);
-                /*
-                switch(this.mapAnimations[p]){
-                    case 1:
-                        this.translate(0, 0, -.67);
-                        break;
-                    case 2:
-                        this.translate(0, 0, .67);
-                        break;
-                    case 3:
-                        this.translate(.67, 0, 0);
-                        break;
-                    case 4:
-                        this.translate(-.67, 0, 0);
-                        break;
-                    default:
-                        break;
-                }
-                */
                 this.objectPlayers[m][n].display();
                 this.popMatrix();
                 count++;
-                //this.mapAnimations[p] = 0;
             }
         }
         
