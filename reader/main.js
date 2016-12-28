@@ -29,6 +29,7 @@ serialInclude([ '../lib/CGF.js',
                 'MyLinearAnimation.js',
                 'MyAnimation.js',
                 'MyCircularAnimation.js',
+                'MyPieceAnimation.js',
 				'PlogCom.js',
 				'MyGameBoard.js',
 

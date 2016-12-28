@@ -40,6 +40,8 @@ XMLscene.prototype.init = function (application) {
     this.status = 'a jogar';
     this.pointsP1 = 0;
     this.pointsP2 = 0;
+    
+    this.selectObjects=[];
 	
     this.objects= [
 		[
@@ -164,8 +166,52 @@ XMLscene.prototype.init = function (application) {
             new MySphere(this,1,100,100)
         ]
     ];
+    
+    this.map = {
+        101: 13,
+        102: 14,
+        103: 15,
+        104: 16,
+        105: 17,
+        106: 24,
+        107: 25,
+        108: 26,
+        109: 35,
+        110: 75,
+        111: 84,
+        112: 85,
+        113: 86,
+        114: 93,
+        115: 94,
+        116: 95,
+        117: 96,
+        118: 97
+    };
+    
+    this.mapAnimations = {
+        101: 0,
+        102: 0,
+        103: 0,
+        104: 0,
+        105: 0,
+        106: 0,
+        107: 0,
+        108: 0,
+        109: 0,
+        110: 0,
+        111: 0,
+        112: 0,
+        113: 0,
+        114: 0,
+        115: 0,
+        116: 0,
+        117: 0,
+        118: 0
+    };
    
     this.gameBoard = new MyGameBoard(this);
+    
+    this.animationPlayers = [null, new MyPieceAnimation(this, 2, 2, 'N'), new MyPieceAnimation(this, 2, 2, 'S'), new MyPieceAnimation(this, 2, 2, 'E'), new MyPieceAnimation(this, 2, 2, 'W')];
 	
     this.setPickEnabled(true);
 };
@@ -221,6 +267,9 @@ XMLscene.prototype.initCameras = function () {
 };
 
 XMLscene.prototype.logPicking = function (){
+    var peca, vert=null, vert_a=null, vert_n=null, hor=null, hor_a=null, hor_n=null;
+    var anim = null, p;
+    
 	if (this.pickMode == false) {
 		if (this.pickResults != null && this.pickResults.length > 0) {
 			for (var i=0; i< this.pickResults.length; i++) {
@@ -229,6 +278,47 @@ XMLscene.prototype.logPicking = function (){
 				{
 					var customId = this.pickResults[i][1];				
 					console.log("Picked object: " + obj + ", with pick id " + customId);
+                    if(customId<100){
+                        console.log("SELECIONEI LUGAR");
+                        if(this.selectObjects[this.selectObjects.length-1]>=100){
+                            peca = this.selectObjects[this.selectObjects.length-1];
+                            
+                            vert_a=Math.floor(this.map[peca]/10);
+                            vert_n=Math.floor(customId/10);
+                            vert = vert_n - vert_a;
+                            console.log("Va: "+vert_a+" Vn: "+vert_n+" V: "+vert);
+                            hor_a=this.map[peca]%10;
+                            hor_n=customId%10;
+                            hor = hor_n - hor_a;
+                            console.log("Ha: "+hor_a+" Hn: "+hor_n+" H: "+hor);
+                            
+                            if(vert > 0){
+                                console.log("MOVE PECA (S) "+peca+" ACTUAL: "+this.map[peca]+" PROX: "+customId);
+                                this.mapAnimations[peca] = 2;
+                            }
+                            else if(vert < 0){
+                                console.log("MOVE PECA (N) "+peca+" ACTUAL: "+this.map[peca]+" PROX: "+customId);
+                                this.mapAnimations[peca] = 1;
+                            }
+                            if(hor > 0){
+                                console.log("MOVE PECA (E) "+peca+" ACTUAL: "+this.map[peca]+" PROX: "+customId);
+                                this.mapAnimations[peca] = 3;
+                            }
+                            else if(hor < 0){
+                                console.log("MOVE PECA (O) "+peca+" ACTUAL: "+this.map[peca]+" PROX: "+customId);
+                                this.mapAnimations[peca] = 4;
+                            }
+                            // TODO mover peca com animacao : arco
+                            // TODO check movimento
+                            this.map[peca] = customId;
+                            
+                        }
+                    }
+                    else{
+                        console.log("SELECIONEI PECA");
+                        // TODO extra: animacao 
+                    }
+                    this.selectObjects.push(customId);
 				}
 			}
 			this.pickResults.splice(0,this.pickResults.length);
@@ -713,6 +803,7 @@ XMLscene.prototype.changeView = function (cam) {
 
 
 XMLscene.prototype.display = function () {
+    var p, pp, pp_1, pp_2, ppp;
     // ---- BEGIN Background, camera and axis setup
     
     this.logPicking();
@@ -762,6 +853,7 @@ XMLscene.prototype.display = function () {
         this.translate(10.656, 2.53, 8.35);
         
         for (i =0; i<this.objects.length; i++) {
+            count=1;
             for(var j = 0; j<this.objects[i].length; j++){
                 this.pushMatrix();
                 
@@ -783,7 +875,19 @@ XMLscene.prototype.display = function () {
                     
                 this.scale(.20,.20,.20);
                 this.rotate(-Math.PI/2, 1, 0 ,0);
-                this.registerForPick(count, this.objects[i][j]);
+                if(i==0 && j==0){
+                    count=3;
+                }
+                else if(i==1 && j==0){
+                    count=2;
+                }
+                else if(i==7 && j==0){
+                    count=2;
+                }
+                else if(i==8 && j==0){
+                    count=3;
+                }
+                this.registerForPick((i+1)*10+count, this.objects[i][j]);
 
                 this.myMaterial.apply();
                 this.objects[i][j].display();
@@ -803,6 +907,13 @@ XMLscene.prototype.display = function () {
                 this.pushMatrix();
                 
                 if(m==0){   //p1
+                    
+                    p=101+n;
+                    pp = this.map[p];
+                    pp_1 = Math.floor(pp/10)-1;
+                    pp_2 = (pp % 10)-3;
+                    this.translate(pp_2*.665, 0, pp_1*.67);
+                    /*
                     if(n<=4){
                         this.translate(n*.665, 0, 0);
                     }
@@ -813,13 +924,21 @@ XMLscene.prototype.display = function () {
                     else{
                         this.translate(2*.665, 0, 2*.67);
                     }
+                    */
                     this.myMaterial = this.graph.materials['p1'];
                     this.myMaterial.apply();
                 }
                 else{       //p2
                     this.myMaterial = this.graph.materials['p2'];
                     this.myMaterial.apply();
-                    this.translate(0, 0, 6*.67);
+                    //this.translate(0, 0, 6*.67);
+                    
+                    p=110+n;
+                    pp = this.map[p];
+                    pp_1 = Math.floor(pp/10)-1;
+                    pp_2 = (pp % 10)-3;
+                    this.translate(pp_2*.665, 0, pp_1*.67);
+                    /*
                     if(n==0){
                         this.translate(2*.665, 0, 0);
                     }
@@ -830,6 +949,7 @@ XMLscene.prototype.display = function () {
                     else{
                         this.translate((n-4)*.665, 0, 2*.67);
                     }
+                    */
                 }
                 
                 if(n==2 && m==0){
@@ -845,13 +965,42 @@ XMLscene.prototype.display = function () {
                 }
                     
                 
-                this.rotate(-Math.PI/2, 1, 0 ,0);
-                this.registerForPick(100+count, this.objectPlayers[m][n]);
-
                 
+                this.registerForPick(100+count, this.objectPlayers[m][n]);
+                if(m==0){
+                    p=101+n;
+                }
+                else{
+                    p=110+n;
+                }
+                /*
+                if(this.animationPlayers[this.mapAnimations[p]] != null){
+                    this.animationPlayers[this.mapAnimations[p]].apply(this.elapsedTime);
+                }
+                */
+                //console.log("PECA "+p+" "+this.mapAnimations[p]);
+                /*
+                switch(this.mapAnimations[p]){
+                    case 1:
+                        this.translate(0, 0, -.67);
+                        break;
+                    case 2:
+                        this.translate(0, 0, .67);
+                        break;
+                    case 3:
+                        this.translate(.67, 0, 0);
+                        break;
+                    case 4:
+                        this.translate(-.67, 0, 0);
+                        break;
+                    default:
+                        break;
+                }
+                */
                 this.objectPlayers[m][n].display();
                 this.popMatrix();
                 count++;
+                this.mapAnimations[p] = 0;
             }
         }
         
