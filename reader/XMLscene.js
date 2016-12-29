@@ -217,7 +217,19 @@ XMLscene.prototype.init = function (application) {
     this.ppp_1 = [[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0]];
     this.ppp_2 = [[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0]];
     this.setPickEnabled(true);
+	//console.log("wowzers");
+	//var key = this.map.getKeyByValue(97);
+	//console.log(key);
 };
+
+Object.prototype.getKeyByValue = function(value) {
+    for( var prop in this ) {
+        if( this.hasOwnProperty( prop ) ) {
+             if( this[ prop ] === value )
+                 return prop;
+        }
+    }
+}
 
 XMLscene.prototype.initLights = function () {
     for(var i =0; i < this.light.length; i++){
@@ -335,6 +347,8 @@ XMLscene.prototype.setSelObjects = function(customId,peca,anim){
 	this.map[peca] = customId;
 	this.mapAnimations[peca] = anim;
 	console.log( this.mapAnimations[peca]);
+	console.log(this.map[peca]);
+	console.log(peca);
 	//this.selectObjects.push(customId);
 }
 

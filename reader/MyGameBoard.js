@@ -78,6 +78,13 @@ MyGameBoard.prototype.getPrologRequest = function(requestString, onSuccess, onEr
 						
 					}
 					
+					if(requestString.substring(0,9) == "checkLose" && response == '0'){
+						if(gBoard.currPlayer == gBoard.playerCPU1 || gBoard.currPlayer == gBoard.playerCPU2){
+						var prSentence = "botMove(" + gBoard.boardString + ")";
+						gBoard.getPrologRequest(prSentence);
+					}}
+	
+					
 					};
 				request.onerror = onError || function(){console.log("Error waiting for response");};
 
@@ -199,12 +206,38 @@ MyGameBoard.prototype.keepId = function(customId,piece,anim,X,Y,NX,NY){
 	
 }
 
+
+
+
+
 MyGameBoard.prototype.confirmMove = function(X,Y,NX,NY){
 	
 	console.log("move confirmed, new coordinates :");
 	console.log(X);
 	console.log(Y);
 	console.log(this.nodeRX);
+	
+	if(this.currPlayer == this.playerCPU1 || this.currPlayer == this.playerCPU2){
+		var cY = parseInt(Y) +1;
+		var cX = parseInt(X) +1;
+		this.currId = cY*10 + cX;
+		this.currPeca = parseInt(this.scene.map.getKeyByValue( this.currId));
+		var cNY=parseInt(NY) +1;
+		var cNX=parseInt(NX) +1;
+		if(cNY > cY && cX == cNX){
+			this.currAnim = 2;
+		}
+		else if(cNY < cY && cX == cNX){
+			this.currAnim = 1;
+		}
+		else if(cNY == cY && cX > cNX){
+			this.currAnim = 4;
+		}
+		else if(cNY == cY && cX < cNX){
+			this.currAnim = 3;
+		}
+		
+	}
 	
 	if(this.nodeRX == X && this.nodeRY == Y){
 		this.currPlayer = 1;
@@ -217,6 +250,14 @@ MyGameBoard.prototype.confirmMove = function(X,Y,NX,NY){
 		this.nodeWX = NX;
 		this.nodeWY = NY;
 	}
+	
+	
+	
+	console.log("macarena");
+	
+	console.log(this.currId);
+	console.log(this.currPeca);
+	console.log(this.currAnim);
 	
 	if(Y == 0 || Y == 8){
 		if(NY == 0 || NY == 8){
@@ -274,9 +315,5 @@ MyGameBoard.prototype.confirmMove = function(X,Y,NX,NY){
 	var prSentence = "checkLose(" + this.boardString2 + ",'R')";
 	this.getPrologRequest(prSentence);
 	
-	if(this.currPlayer == this.playerCPU1 || this.currPlayer == this.playerCPU2){
-		var prSentence = "botMove(" + this.boardString + ")";
-		this.getPrologRequest(prSentence);
-	}
 	
 }
