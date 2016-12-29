@@ -17,6 +17,12 @@ function MyGameBoard(scene){
 	this.currPeca;
 	this.currAnim;
 	
+	this.nodeRX = 4;
+	this.nodeRY = 0;
+	this.nodeWX = 4;
+	this.nodeWY = 8;
+	
+	this.currPlayer = 0;
 }
 
 MyGameBoard.prototype = Object.create(MyGameBoard.prototype);
@@ -55,6 +61,7 @@ MyGameBoard.prototype.getPrologRequest = function(requestString, onSuccess, onEr
 						this.currId = 0;
 						this.currPeca = 0;
 						this.currAnim =0;
+						console.log("chupa mos");
 					}
 					
 					};
@@ -135,7 +142,12 @@ MyGameBoard.prototype.setNewBS = function(){
 }
 
 MyGameBoard.prototype.keepId = function(customId,piece,anim,X,Y,NX,NY){
-	var prSentence = "moveCheck(" + this.boardString + "," + X + "," + Y+ "," + NX + "," + NY + ")";
+	var prSentence;
+	if(this.currPlayer == 0){
+	prSentence = "moveCheck(" + this.boardString + "," + X + "," + Y+ "," + NX + "," + NY + ")";}
+	else{
+	prSentence = "moveCheck2(" + this.boardString + "," + X + "," + Y+ "," + NX + "," + NY + ")";
+	}
 	this.currPeca = piece;
 	this.currId = customId;
 	this.currAnim = anim; 
@@ -146,11 +158,61 @@ MyGameBoard.prototype.keepId = function(customId,piece,anim,X,Y,NX,NY){
 MyGameBoard.prototype.confirmMove = function(X,Y,NX,NY){
 	
 	console.log("move confirmed, new coordinates :");
-	console.log(NX);
-	console.log(NY);
+	console.log(X);
+	console.log(Y);
+	console.log(this.nodeRX);
 	
-	this.board[NY][NX] = this.board[Y][X];
-	this.board[Y][X] = "o";
+	if(this.nodeRX == X && this.nodeRY == Y){
+		this.currPlayer = 1;
+		this.nodeRX = NX;
+		this.nodeRY = NY;
+	}
+	
+	if(this.nodeWX == X && this.nodeWY == Y){
+		this.currPlayer = 0;
+		this.nodeWX = NX;
+		this.nodeWY = NY;
+	}
+	
+	if(Y == 0 || Y == 8){
+		if(NY == 0 || NY == 8){
+			this.board[NY][NX-2] = this.board[Y][X-2];
+			this.board[Y][X-2] = "o";
+		}else if(NY == 1 || NY == 7){
+			this.board[NY][NX-1] = this.board[Y][X-2];
+			this.board[Y][X-2] = "o";
+		}
+		else{
+			this.board[NY][NX] = this.board[Y][X-2];
+			this.board[Y][X-2] = "o";
+		}
+	}
+	else if(Y == 1 || Y == 7){
+		if(NY == 0 || NY == 8){
+			this.board[NY][NX-2] = this.board[Y][X-1];
+			this.board[Y][X-1] = "o";
+		}else if(NY == 1 || NY == 7){
+			this.board[NY][NX-1] = this.board[Y][X-1];
+			this.board[Y][X-1] = "o";
+		}
+		else{
+			this.board[NY][NX] = this.board[Y][X-1];
+			this.board[Y][X-1] = "o";
+		}
+	}else{
+		if(NY == 0 || NY == 8){
+			this.board[NY][NX-2] = this.board[Y][X];
+			this.board[Y][X] = "o";
+		}else if(NY == 1 || NY == 7){
+			this.board[NY][NX-1] = this.board[Y][X];
+			this.board[Y][X] = "o";
+		}
+		else{
+			this.board[NY][NX] = this.board[Y][X];
+			this.board[Y][X] = "o";
+		}
+	}
+	
 	
 	console.log(this.board);
 	this.setNewBS();
@@ -160,7 +222,8 @@ MyGameBoard.prototype.confirmMove = function(X,Y,NX,NY){
 	this.currId = 0;
 	this.currPeca = 0;
 	this.currAnim =0;
-	
+	console.log("aiaiaiaia");
+	console.log(this.boardString);
 	//função pa mexer no board
 	
 	

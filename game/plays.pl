@@ -261,15 +261,25 @@ move_checker(_, _,Res, Xf, Yf, _, _):-
 	move_checker(_,_, Res, Xf, Yf, _, _).
 
 js_move_checker(B,X,Y,NX,NY,D,F,A):-
+	possible_moves(B, X, Y, Res),
+	write(Res),nl,
+	member([NX,NY], Res),
+	find_active_units(B, D, F, Res2),
+	write(Res2),nl,
+	(   member([X,Y], Res2) ->
+    A is 1
+;   A is 0
+).
+	
+js_move_checker(_,_,_,_,_,_,_,A):-
+	A is 0.
+	
+js_move_checker(B,X,Y,NX,NY,D,F,A):-
 	find_active_units(B, D, F, Res2),
 	member([X,Y], Res2),
 	possible_moves(B, X, Y, Res),
 	member([NX,NY], Res),
 	A is 1.
-	
-js_move_checker(_,_,_,_,_,_,_,A):-
-	A is 0.
-	
 	
 unit_checker(Xt,Yt,Res, Xf, Yf):-
 	get_piece_coords(Xt,Yt), 
