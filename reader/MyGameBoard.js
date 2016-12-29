@@ -65,6 +65,14 @@ MyGameBoard.prototype.getPrologRequest = function(requestString, onSuccess, onEr
 						console.log("chupa mos");
 					}
 					
+					if(requestString.substring(0,7) == "botMove"){
+						var subRequestBot = response.substring(response.indexOf("[")+1,response.indexOf("]"));
+						var listB = subRequestBot.split(",");
+						console.log("test");
+						console.log(listB);
+						
+					}
+					
 					};
 				request.onerror = onError || function(){console.log("Error waiting for response");};
 
@@ -93,6 +101,8 @@ MyGameBoard.prototype.parseBoard = function(plBoard){
 	console.log(board);
 	this.board = board;
 	this.setNewBS();
+	var prSentence = "botMove(" + this.boardString + ")";
+	this.getPrologRequest(prSentence);
 	/*
 	var prSentence = "moveCheck(" + this.boardString + ",4,2,4,3)";
 	this.getPrologRequest(prSentence);
