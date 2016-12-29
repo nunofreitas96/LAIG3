@@ -260,7 +260,14 @@ move_checker(_, _,Res, Xf, Yf, _, _):-
 	nl,
 	move_checker(_,_, Res, Xf, Yf, _, _).
 
-
+js_move_checker(B,X,Y,NX,NY,A):-
+	possible_moves(B, X, Y, Res),
+	member([NX,NY], Res),
+	A is 1.
+	
+js_move_checker(_,_,_,_,_,A):-
+	A is 0.
+	
 	
 unit_checker(Xt,Yt,Res, Xf, Yf):-
 	get_piece_coords(Xt,Yt), 
