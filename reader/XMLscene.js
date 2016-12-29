@@ -937,8 +937,16 @@ XMLscene.prototype.display = function () {
                     pp = this.map[p];
                     pp_1 = Math.floor(pp/10)-1;
                     pp_2 = (pp % 10)-3;
-                    
+					
+					if(p == 103 && this.mapAnimations[p] != 0){
+					console.log("testingmax");
+					console.log(this.mapAnimations[p]);
+					console.log(pp);
+					console.log(pp_1);
+					console.log(pp_2);}
+					
                     switch(this.mapAnimations[p]){
+						
                         case 0:
                             this.translate(pp_2*.665, 0, pp_1*.67);
                             this.ppp_1[m][n] = pp_1;
@@ -985,6 +993,7 @@ XMLscene.prototype.display = function () {
                             }
                             break;
                         case 4:
+							
                             //console.log('OESTE');
                             if(this.ppp_2[m][n] != pp_2){
                                 this.ppp_2[m][n] -= .05;
@@ -1010,6 +1019,13 @@ XMLscene.prototype.display = function () {
                     pp_1 = Math.floor(pp/10)-1;
                     pp_2 = (pp % 10)-3;
                     
+					
+					if(p == 116 && this.mapAnimations[p] != 0){
+					console.log("testingmax");
+					console.log(this.mapAnimations[p]);
+					console.log(pp);
+					console.log(pp_1);
+					console.log(pp_2);}
                     switch(this.mapAnimations[p]){
                         case 0:
                             //this.pushMatrix();
