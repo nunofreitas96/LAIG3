@@ -379,21 +379,21 @@ XMLscene.prototype.update = function (currtime) {
     this.elapsedTime = (currtime - this.startTime) / 1000;
     
     // TODO sistema de pontos
-    
-    if(Math.floor(this.elapsedTime) == 6){
+    //console.log(this.gameBoard.playerWon);
+	if(this.gameBoard.playerWon == 0){
+		this.status = 'P1 ganhou !';
+	}
+	else if(this.gameBoard.playerWon == 1){
+		this.status = 'P2 ganhou !';
+	}
+	
+    if(Math.floor(this.elapsedTime) == 5400){
         if(this.pointsP1 == this.pointsP2){
             this.status = 'empate !';
         }
-        else if(this.pointsP1 > this.pointsP2){
-            this.status = 'P1 ganhou !';
-        }
-        else{
-            this.status = 'P2 ganhou !';
-        }
     }
     // TODO terminar o jogo: nao deixar fazer mais jogadas
-    if(Math.floor(this.elapsedTime) >= 6)
-        this.elapsedTime = 6;
+   
 }
 XMLscene.prototype.processaGrafo= function(nodeName){
 
@@ -618,7 +618,9 @@ XMLscene.prototype.processaGrafo= function(nodeName){
                 }
                 
                 if(node == this.graph["pointsP1"]){
-                    switch( this.pointsP1 ){
+					console.log("WELL ILL BE");
+					console.log(this.pointsP1);
+                    switch( parseInt(this.pointsP1) ){
                         case 1:
                             texture = this.graph.scene.textures["time1A"];
                             break;
@@ -653,7 +655,7 @@ XMLscene.prototype.processaGrafo= function(nodeName){
                     material.setTexture(texture);
                 }
                 else if(node == this.graph["pointsP2"]){
-                    switch( this.pointsP2 ){
+                    switch(  parseInt(this.pointsP2) ){
                         case 1:
                             texture = this.graph.scene.textures["time1A"];
                             break;
@@ -859,7 +861,8 @@ XMLscene.prototype.display = function () {
     // it is important that things depending on the proper loading of the graph
     // only get executed after the graph has loaded correctly.
     // This is one possible way to do it
-
+	this.gameBoard.changeMode(this.myInterface.type);
+	
     if (this.graph.loadedOk)
     {
 

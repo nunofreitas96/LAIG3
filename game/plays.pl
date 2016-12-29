@@ -289,7 +289,10 @@ js_move_checker(B,X,Y,NX,NY,D,F,A):-
 	
 js_move_checker(_,_,_,_,_,_,_,A):-
 	A is 0.
-	
+
+js_number_moves(B,D,F,N):-
+	find_active_units(B, D, F, Res),
+	length(Res,N).
 /*
 js_move_checker(B,X,Y,NX,NY,D,F,A):-
 	find_active_units(B, D, F, Res2),

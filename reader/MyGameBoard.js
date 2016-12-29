@@ -25,8 +25,12 @@ function MyGameBoard(scene){
 	
 	this.currPlayer = 0;
 	
-	this.playerCPU1 =1;
-	this.playerCPU2 =0;
+	this.playerCPU1 =2;
+	this.playerCPU2 =2;
+	
+	this.gamestart = 0;
+	this.gameover = 0;
+	this.playerWon = 2;
 	
 }
 
@@ -53,6 +57,9 @@ MyGameBoard.prototype.getPrologRequest = function(requestString, onSuccess, onEr
 					
 					
 					if(requestString.substring(0,9) == "moveCheck" && response == "1"){
+						
+							
+						
 						var subRequest = requestString.substring(requestString.indexOf("(")+1,requestString.indexOf(")"));
 						
 						subSubRequest = subRequest.substring(subRequest.indexOf("]]")+3,subRequest.length);
@@ -63,10 +70,10 @@ MyGameBoard.prototype.getPrologRequest = function(requestString, onSuccess, onEr
 						
 					}
 					else if(requestString.substring(0,9) == "moveCheck" && response == "0"){
-						this.currId = 0;
-						this.currPeca = 0;
-						this.currAnim =0;
-						console.log("chupa mos");
+						gBoard.currId = 0;
+						gBoard.currPeca = 0;
+						gBoard.currAnim =0;
+						
 					}
 					
 					if(requestString.substring(0,7) == "botMove"){
@@ -92,9 +99,36 @@ MyGameBoard.prototype.getPrologRequest = function(requestString, onSuccess, onEr
 					
 					
 					}
-	
 					
-					};
+					if(requestString.substring(0,9) == "checkLose" && response == '1'){
+						console.log(this.gameover);
+						gBoard.gameover = 1;
+						console.log(this.gameover);
+						
+						if(gBoard.currPlayer == 0){
+							gBoard.playerWon = 0;
+							console.log("Player 1 won!");
+						}
+						else if(gBoard.currPlayer == 1){
+							gBoard.playerWon = 1; 
+							console.log("Player 2 won!");
+						}
+					
+					
+					}
+					if(requestString.substring(0,7) == "nMoves(" ){
+						console.log("oiiiimmm");
+						console.log(response);
+						gBoard.scene.pointsP1 = response;
+						var prSentence = "nMoves2(" + gBoard.boardString + ")";
+						gBoard.getPrologRequest(prSentence);
+					}
+					if(requestString.substring(0,7) == "nMoves2" ){
+						gBoard.scene.pointsP2 = response;
+						
+					}
+					
+				}
 				request.onerror = onError || function(){console.log("Error waiting for response");};
 
 				request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
@@ -102,6 +136,31 @@ MyGameBoard.prototype.getPrologRequest = function(requestString, onSuccess, onEr
 				
 }
 
+MyGameBoard.prototype.changeMode = function(type){
+	if(type == 0 && this.gamestart == 0){
+		console.log("still started");
+		this.currPlayer = 0;
+		this.playerCPU1 =2;
+		this.playerCPU2 =2;
+	}
+	else if(type ==1 && this.gamestart == 0){
+		this.currPlayer = 0;
+	
+		this.playerCPU1 =1;
+		this.playerCPU2 =2;
+	}
+	else if(type == 2 && this.gamestart == 0){
+		this.currPlayer = 0;
+	
+		this.playerCPU1 =1;
+		this.playerCPU2 =0;
+		this.gamestart = 1;
+		var prSentence = "botMove2(" + this.boardString + ")";
+		this.getPrologRequest(prSentence);
+		
+		
+	}
+}
 
 MyGameBoard.prototype.parseBoard = function(plBoard){
 		
@@ -123,12 +182,16 @@ MyGameBoard.prototype.parseBoard = function(plBoard){
 	this.board = board;
 	this.setNewBS();
 	
+	var prSentence2 = "nMoves(" + this.boardString + ")";
+	this.getPrologRequest(prSentence2);
 	/*
 	var prSentence = "moveCheck(" + this.boardString + ",4,2,4,3)";
 	this.getPrologRequest(prSentence);
 	*/
 	//console.log(lines);
 	//this.confirmMove(4,2,4,3);
+	
+	
 	
 }
 
@@ -221,10 +284,12 @@ MyGameBoard.prototype.keepId = function(customId,piece,anim,X,Y,NX,NY){
 
 MyGameBoard.prototype.confirmMove = function(X,Y,NX,NY){
 	
+	if(this.gameover == 0){
 	console.log("move confirmed, new coordinates :");
 	console.log(X);
 	console.log(Y);
 	console.log(this.nodeRX);
+	this.gamestart = 1;
 	
 	if(this.currPlayer == this.playerCPU1 || this.currPlayer == this.playerCPU2){
 		var cY = parseInt(Y) +1;
@@ -320,9 +385,19 @@ MyGameBoard.prototype.confirmMove = function(X,Y,NX,NY){
 	console.log(this.boardString);
 	//função pa mexer no board
 	
+	var prSentence2 = "nMoves(" + this.boardString + ")";
+	this.getPrologRequest(prSentence2);
 	
+	console.log("pqp");
+	console.log(this.scene.pointsP1);
+	
+	if(this.currPlayer == 0){
+	var prSentence = "checkLose(" + this.boardString2 + ",'W')";
+	this.getPrologRequest(prSentence);}
+	
+	if(this.currPlayer == 1){
 	var prSentence = "checkLose(" + this.boardString2 + ",'R')";
-	this.getPrologRequest(prSentence);
+	this.getPrologRequest(prSentence);}
 	
-	
+	}
 }
