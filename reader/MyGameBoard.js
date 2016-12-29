@@ -6,6 +6,7 @@ function MyGameBoard(scene){
 	this.ended = false;
 	
 	this.boardString = "placeholder";
+	this.boardString2;
 	
 	this.board= "placeholder"
 	
@@ -104,38 +105,67 @@ MyGameBoard.prototype.parseBoard = function(plBoard){
 MyGameBoard.prototype.setNewBS = function(){
 	
 	var bString = "[";
+	var bString2 = "[";
 	
 	for(var i = 0; i < this.board.length; i++){
 		bString += "[";
+		bString2 += "[";
 		if(i == this.board.length-1 || i ==0){
 			bString += "-,-,";
+			bString2 += "-,-,";
 		}
 		if(i == this.board.length-2 || i ==1){
 			bString += "-,";
+			bString2 += "-,";
 		}
 		for(var j =0; j < this.board[i].length; j++){
 			
 			if(j != this.board[i].length-1){
-			bString += this.board[i][j] + ",";}
+				if(this.board[i][j] == "W"){
+					bString2 += "'W'" + ",";
+				}
+				else if(this.board[i][j] == "R"){
+					bString2 += "'R'" + ",";
+				}
+				else{
+					bString2 += this.board[i][j] + ",";
+				}
+				bString += this.board[i][j] + ",";
+			}
 			else{
+				if(this.board[i][j] == "W"){
+					bString2 += "'W'";
+				}
+				else if(this.board[i][j] == "R"){
+					bString2 += "'R'";
+				}
+				else{
+					bString2 += this.board[i][j];
+				}
 				bString += this.board[i][j];
 			}
 			
 		}
 		if(i == this.board.length-1 || i ==0){
 			bString += ",-,-";
+			bString2 += ",-,-";
 		}
 		if(i == this.board.length-2 || i ==1){
 			bString += ",-";
+			bString2 += ",-";
 		}
 		if(i == this.board.length-1){
-		bString += "]";}else
+		bString += "]";
+		bString2 += "]";}else{
 		bString += "],";
+		bString2 += "],";}
 	}
 	
 	bString += "]"
+	bString2 += "]"
 	console.log(bString);
 	this.boardString = bString;
+	this.boardString2 = bString2;
 	//var aioq = this.boardString.split(",");
 	//console.log("testeteste")
 	//console.log(aioq);
@@ -226,5 +256,8 @@ MyGameBoard.prototype.confirmMove = function(X,Y,NX,NY){
 	console.log(this.boardString);
 	//função pa mexer no board
 	
+	
+	var prSentence = "checkLose(" + this.boardString2 + ",'R')";
+	this.getPrologRequest(prSentence);
 	
 }

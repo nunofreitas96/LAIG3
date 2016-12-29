@@ -51,8 +51,23 @@ checkLose(B, Node):-
 	(Col2 >= 0 -> (index(B, Row, Col2, Enemy); index(B, Row, Col2, '-'));true),
 	write(Node), write(' Loses'), nl .
 	
-
-
+checkLoss(B, Node,A):-
+	checkEnemy(Node, Enemy),
+	index(B, Row, Col, Node),
+	Row1 is Row +1,
+	(Row1 < 9 -> (index(B, Row1, Col, Enemy); index(B, Row1, Col, '-'));true),
+	Col1 is Col +1,
+	(Col1 < 9 -> (index(B, Row, Col1, Enemy); index(B, Row, Col1, '-'));true),
+	Row2 is Row -1,
+	(Row2 >= 0 -> (index(B, Row2, Col, Enemy); index(B, Row2, Col, '-'));true),
+	Col2 is Col -1,
+	(Col2 >= 0 -> (index(B, Row, Col2, Enemy); index(B, Row, Col2, '-'));true),
+	write(Node), write(' Loses'), nl,
+	A is 1.
+	
+checkLoss(_,_,A):-
+	A is 0.
+	
 %possible_moves(Board, Xcoord, Ycoord, List of Pairs).
 %List of Pairs has the coordinates to where the unit can go
 %

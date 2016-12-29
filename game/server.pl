@@ -112,7 +112,7 @@ parse_input(test(C,N), Res) :- test(C,Res,N).
 parse_input(quit, goodbye).
 parse_input(board, B):- board(B).
 parse_input(movePiece(B,Yi,Xi,Dx,Dy),NB):- movePiece(B,Yi,Xi,Dx,Dy,NB,_).
-parse_input(checkLose(B,Node),victory):- checkLose(B,Node).
+parse_input(checkLose(B,Node),A):- checkLoss(B,Node,A).
 parse_input(moveCheck(B,X,Y,NX,NY),A):- js_move_checker(B,X,Y,NX,NY,r,w,A).
 parse_input(moveCheck2(B,X,Y,NX,NY),A):- js_move_checker(B,X,Y,NX,NY,w,r,A).
 parse_input(checkLose(_,_),not_finished).
