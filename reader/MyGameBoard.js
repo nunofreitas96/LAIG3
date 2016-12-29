@@ -24,6 +24,10 @@ function MyGameBoard(scene){
 	this.nodeWY = 8;
 	
 	this.currPlayer = 0;
+	
+	this.playerCPU1 =1;
+	this.playerCPU2 =2;
+	
 }
 
 MyGameBoard.prototype = Object.create(MyGameBoard.prototype);
@@ -68,8 +72,9 @@ MyGameBoard.prototype.getPrologRequest = function(requestString, onSuccess, onEr
 					if(requestString.substring(0,7) == "botMove"){
 						var subRequestBot = response.substring(response.indexOf("[")+1,response.indexOf("]"));
 						var listB = subRequestBot.split(",");
-						console.log("test");
-						console.log(listB);
+						//console.log("test");
+						//console.log(listB);
+						gBoard.confirmMove(listB[0],listB[1],listB[2],listB[3]);
 						
 					}
 					
@@ -101,8 +106,7 @@ MyGameBoard.prototype.parseBoard = function(plBoard){
 	console.log(board);
 	this.board = board;
 	this.setNewBS();
-	var prSentence = "botMove(" + this.boardString + ")";
-	this.getPrologRequest(prSentence);
+	
 	/*
 	var prSentence = "moveCheck(" + this.boardString + ",4,2,4,3)";
 	this.getPrologRequest(prSentence);
@@ -269,5 +273,10 @@ MyGameBoard.prototype.confirmMove = function(X,Y,NX,NY){
 	
 	var prSentence = "checkLose(" + this.boardString2 + ",'R')";
 	this.getPrologRequest(prSentence);
+	
+	if(this.currPlayer == this.playerCPU1 || this.currPlayer == this.playerCPU2){
+		var prSentence = "botMove(" + this.boardString + ")";
+		this.getPrologRequest(prSentence);
+	}
 	
 }
