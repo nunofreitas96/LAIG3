@@ -1028,6 +1028,7 @@ XMLscene.prototype.display = function () {
 					console.log(pp_2);}
                     switch(this.mapAnimations[p]){
                         case 0:
+						
                             //this.pushMatrix();
                             this.translate(pp_2*.665, 0, pp_1*.67);
                             //this.popMatrix();
@@ -1036,6 +1037,9 @@ XMLscene.prototype.display = function () {
                             //console.log("zzz "+this.ppp_1[m][n]+" "+this.ppp_2[m][n]+" "+pp_1+" "+pp_2);
                             break;
                         case 1:
+						if(p == 116){
+							console.log("omg working!");
+						}
                             //console.log("NORTE");
                             if(this.ppp_1[m][n] != pp_1){
                                 this.ppp_1[m][n] -= .05;
@@ -1045,10 +1049,14 @@ XMLscene.prototype.display = function () {
                                 this.translate(pp_2*.665, 0, this.ppp_1[m][n]*.67);
                             }
                             else{
+								if(p == 116)
+								console.log("zoinks finished!");
                                 this.mapAnimations[p] = 0;
                             }
                             break;
                         case 2:
+							if(p == 116)
+							console.log("omg working!");
                             //console.log('SUL pp_1:'+pp_1+" ppp_1:"+this.ppp_1[m][n]);
                             if(this.ppp_1[m][n] != pp_1){
                                 this.ppp_1[m][n] += .05;
@@ -1058,12 +1066,16 @@ XMLscene.prototype.display = function () {
                                 this.translate(pp_2*.665, 0, this.ppp_1[m][n]*.67);
                             }
                             else{
+								if(p == 116)
+								console.log("zoinks finished!");
                                 this.mapAnimations[p] = 0;
                             }
                             //console.log('SUL__ pp_1:'+pp_1+" ppp_1:"+this.ppp_1[m][n]);
                             break;
                         case 3:
                             //console.log('ESTE');
+							if(p == 116)
+							console.log("omg working!");
                             if(this.ppp_2[m][n] != pp_2){
                                 this.ppp_2[m][n] += .05;
                                 this.ppp_2[m][n] = Math.round(this.ppp_2[m][n] * 100) / 100;
@@ -1072,10 +1084,14 @@ XMLscene.prototype.display = function () {
                                 this.translate(this.ppp_2[m][n]*.665, 0, pp_1*.67);
                             }
                             else{
+								if(p == 116)
+								console.log("zoinks finished!");
                                 this.mapAnimations[p] = 0;
                             }
                             break;
                         case 4:
+						if(p == 116)
+						console.log("omg working!");
                             //console.log('OESTE');
                             if(this.ppp_2[m][n] != pp_2){
                                 this.ppp_2[m][n] -= .05;
@@ -1085,6 +1101,8 @@ XMLscene.prototype.display = function () {
                                 this.translate(this.ppp_2[m][n]*.665, 0, pp_1*.67);
                             }
                             else{
+								if(p == 116)
+								console.log("zoinks finished!");
                                 this.mapAnimations[p] = 0;
                             }
                             break;

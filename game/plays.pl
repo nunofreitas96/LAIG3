@@ -301,8 +301,12 @@ js_move_checker(B,X,Y,NX,NY,D,F,A):-
 	
 js_bot_move(B,D,F,R):-
 	find_active_units(B, D, F, Res2),
+	nl,
+	write(Res2),nl,
 	get_random_from_list(Res2, X, Y, _, _),
 	possible_moves(B, X, Y, Res),
+	nl,
+	write(Res),nl,
 	get_random_from_list(Res, NX, NY, X, Y),
 	append([X,Y],[NX,NY],R).
 	

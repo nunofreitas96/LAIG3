@@ -26,7 +26,7 @@ function MyGameBoard(scene){
 	this.currPlayer = 0;
 	
 	this.playerCPU1 =1;
-	this.playerCPU2 =2;
+	this.playerCPU2 =0;
 	
 }
 
@@ -78,11 +78,20 @@ MyGameBoard.prototype.getPrologRequest = function(requestString, onSuccess, onEr
 						
 					}
 					
+					
+					
 					if(requestString.substring(0,9) == "checkLose" && response == '0'){
-						if(gBoard.currPlayer == gBoard.playerCPU1 || gBoard.currPlayer == gBoard.playerCPU2){
+						if(gBoard.currPlayer == gBoard.playerCPU1){
 						var prSentence = "botMove(" + gBoard.boardString + ")";
 						gBoard.getPrologRequest(prSentence);
-					}}
+						}
+						else if(gBoard.currPlayer == gBoard.playerCPU2){
+							var prSentence = "botMove2(" + gBoard.boardString + ")";
+							gBoard.getPrologRequest(prSentence);
+						}
+					
+					
+					}
 	
 					
 					};
@@ -220,10 +229,11 @@ MyGameBoard.prototype.confirmMove = function(X,Y,NX,NY){
 	if(this.currPlayer == this.playerCPU1 || this.currPlayer == this.playerCPU2){
 		var cY = parseInt(Y) +1;
 		var cX = parseInt(X) +1;
-		this.currId = cY*10 + cX;
-		this.currPeca = parseInt(this.scene.map.getKeyByValue( this.currId));
+		var cId = cY*10 + cX;
+		this.currPeca = parseInt(this.scene.map.getKeyByValue(cId));
 		var cNY=parseInt(NY) +1;
 		var cNX=parseInt(NX) +1;
+		this.currId = cNY*10 + cNX;
 		if(cNY > cY && cX == cNX){
 			this.currAnim = 2;
 		}
@@ -239,6 +249,13 @@ MyGameBoard.prototype.confirmMove = function(X,Y,NX,NY){
 		
 	}
 	
+	
+	
+	
+	
+	
+	if( NY != Y || NX != X){
+		
 	if(this.nodeRX == X && this.nodeRY == Y){
 		this.currPlayer = 1;
 		this.nodeRX = NX;
@@ -250,14 +267,6 @@ MyGameBoard.prototype.confirmMove = function(X,Y,NX,NY){
 		this.nodeWX = NX;
 		this.nodeWY = NY;
 	}
-	
-	
-	
-	console.log("macarena");
-	
-	console.log(this.currId);
-	console.log(this.currPeca);
-	console.log(this.currAnim);
 	
 	if(Y == 0 || Y == 8){
 		if(NY == 0 || NY == 8){
@@ -297,7 +306,7 @@ MyGameBoard.prototype.confirmMove = function(X,Y,NX,NY){
 			this.board[Y][X] = "o";
 		}
 	}
-	
+	}
 	
 	console.log(this.board);
 	this.setNewBS();
