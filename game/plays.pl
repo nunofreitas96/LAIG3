@@ -260,12 +260,14 @@ move_checker(_, _,Res, Xf, Yf, _, _):-
 	nl,
 	move_checker(_,_, Res, Xf, Yf, _, _).
 
-js_move_checker(B,X,Y,NX,NY,A):-
+js_move_checker(B,X,Y,NX,NY,D,F,A):-
+	find_active_units(B, D, F, Res2),
+	member([X,Y], Res2),
 	possible_moves(B, X, Y, Res),
 	member([NX,NY], Res),
 	A is 1.
 	
-js_move_checker(_,_,_,_,_,A):-
+js_move_checker(_,_,_,_,_,_,_,A):-
 	A is 0.
 	
 	
@@ -281,6 +283,7 @@ unit_checker(_,_,Res, Xf, Yf):-
 	nl,
 	unit_checker(_,_,Res, Xf, Yf).
 	
+
 	
 find_active_units(B, D, F, Res):-
 	get_unit(T1,D),
