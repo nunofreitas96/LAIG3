@@ -311,10 +311,12 @@ XMLscene.prototype.logPicking = function (){
                                 console.log("MOVE PECA (O) "+peca+" ACTUAL: "+this.map[peca]+" PROX: "+customId);
                                 this.mapAnimations[peca] = 4;
                             }
+							
+							
                             // TODO mover peca com animacao : arco
                             // TODO check movimento
-                            this.map[peca] = customId;
-                            
+                            //this.map[peca] = customId;
+                            this.gameBoard.keepId(customId,peca,this.mapAnimations[peca],hor_a-1,vert_a-1,hor_n-1,vert_n-1);
                         }
                     }
                     else{
@@ -327,6 +329,13 @@ XMLscene.prototype.logPicking = function (){
 			this.pickResults.splice(0,this.pickResults.length);
 		}		
 	}
+}
+
+XMLscene.prototype.setSelObjects = function(customId,peca,anim){
+	this.map[peca] = customId;
+	this.mapAnimations[peca] = anim;
+	console.log( this.mapAnimations[peca]);
+	//this.selectObjects.push(customId);
 }
 
 XMLscene.prototype.setDefaultAppearance = function () {
