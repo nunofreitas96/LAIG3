@@ -213,6 +213,8 @@ XMLscene.prototype.init = function (application) {
     
     this.animationPlayers = [null, new MyPieceAnimation(this, 2, 2, 'N'), new MyPieceAnimation(this, 2, 2, 'S'), new MyPieceAnimation(this, 2, 2, 'E'), new MyPieceAnimation(this, 2, 2, 'W')];
 	
+	
+	
     this.count=0;
     this.ppp_1 = [[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0]];
     this.ppp_2 = [[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0]];
@@ -825,7 +827,47 @@ XMLscene.prototype.updateView = function () {
 XMLscene.prototype.changeView = function (cam) {
     //console.log("CHANGE VIEW "+cam);
     //TODO animation through views
-    this.camera = this.views[cam];
+	
+	
+	if(this.camera.position[0] != this.views[cam].position[0] || this.camera.position[1] != this.views[cam].position[1] || this.camera.position[2] != this.views[cam].position[2] ){
+		var currPos = this.camera.position[2];
+		var currPos1 = this.camera.position[1];
+		var currPos2 = this.camera.position[0];
+		
+		if(this.camera.position[2] > this.views[cam].position[2]){
+		currPos = this.camera.position[2] - 1;}
+		else if(this.camera.position[2] < this.views[cam].position[2]){
+			currPos = this.camera.position[2] + 1;
+		}
+		
+		if(this.camera.position[1] > this.views[cam].position[1]){
+		currPos1 = this.camera.position[1] - 1;}
+		else if(this.camera.position[1] < this.views[cam].position[1]){
+			currPos1 = this.camera.position[1] + 1;
+		}
+		
+		if(this.camera.position[0] > this.views[cam].position[0]){
+		currPos2 = this.camera.position[0] - 1;}
+		else if(this.camera.position[0] < this.views[cam].position[0]){
+			currPos2 = this.camera.position[0] + 1;
+		}
+		
+		this.camera.position = [currPos2,currPos1,currPos,0];
+		
+		this.camera.far = this.views[cam].far;
+		this.camera.target = this.views[cam].target;
+		this.camera.direction = this.views[cam].direction;
+	}
+	console.log()
+	console.log(this.camera);
+		console.log(this.views[cam]);
+		console.log(cam);
+		/*if(this.cam == 0){
+			this.initCameras();
+		}*/
+    //this.camera = this.views[cam];
+	//this.currCamera;
+	
     this.myInterface.setActiveCamera(this.camera);
 };
 
@@ -834,6 +876,7 @@ XMLscene.prototype.display = function () {
     var p, pp, pp_1, pp_2;
     // ---- BEGIN Background, camera and axis setup
     
+	
     this.logPicking();
 	this.clearPickRegistration();
 
@@ -874,6 +917,11 @@ XMLscene.prototype.display = function () {
         this.processaGrafo(this.scene_root);
         this.changeView(this.myInterface.camera);
         
+		if(this.camerafirststatus = 0){
+		this.initialcamera = this.camera;
+	}
+	
+	this.camerafirststatus = 1;
         
         var count=1;
         
