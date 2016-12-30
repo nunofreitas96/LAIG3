@@ -39,10 +39,15 @@ XMLscene.prototype.init = function (application) {
     this.myTime = this.elapsedTime;
     
     this.starting = 0;
+    this.startTurno = 0;
     
     this.status = 'a jogar';
     this.pointsP1 = 0;
     this.pointsP2 = 0;
+    
+    this.turno = 0;
+    
+    this.playerTime = 0;
     
     this.selectObjects=[];
 	
@@ -336,6 +341,13 @@ XMLscene.prototype.logPicking = function (){
                             //this.map[peca] = customId;
                             this.gameBoard.keepId(customId,peca,this.mapAnimations[peca],hor_a-1,vert_a-1,hor_n-1,vert_n-1);
                         }
+                        
+                        if(peca == 103 || peca == 106){
+                            
+                            this.playerTime = 0;
+                            this.turno = (this.turno + 1) % 2;
+                            console.log("MUDA TURNO " +this.turno);
+                        }
                     }
                     else{
                         console.log("SELECIONEI PECA");
@@ -378,11 +390,23 @@ XMLscene.prototype.onGraphLoaded = function (){
 };
 
 XMLscene.prototype.update = function (currtime) {
-
+    //console.log("AQUI "+this.starting+" "+this.playerTime);
+    if(this.starting == 0){
+        this.startTime = 0;
+    }
     if (this.startTime == 0)
         this.startTime = currtime;
-    if(this.starting == 1)
-        this.elapsedTime = (currtime - this.startTime) / 1000;
+    this.elapsedTime = (currtime - this.startTime) / 1000;
+    
+    if(this.elapsedTime > 0){
+        if(this.playerTime == 0){
+            console.log("PLAYER TIME_0: "+currtime);
+            this.startTurno = this.elapsedTime;
+            this.playerTime = 1;
+        }
+        else
+            this.playerTime = this.elapsedTime-this.startTurno;
+    }
     
     // TODO sistema de pontos
     //console.log(this.gameBoard.playerWon);
@@ -398,7 +422,17 @@ XMLscene.prototype.update = function (currtime) {
         }
     }
 	
-	
+	if(Math.floor(this.playerTime) == this.myInterface.playerTimeChoose){
+        if(this.turno == 0){
+            this.status = 'P2 ganhou !';
+        }
+        else{
+            this.status = 'P1 ganhou !';
+        }
+        //this.elapsedTime = 0;
+        //TODO forçar paragem
+    }
+    
     if(Math.floor(this.myTime) == 5400){
         if(this.pointsP1 == this.pointsP2){
             this.status = 'empate !';
@@ -1017,12 +1051,12 @@ XMLscene.prototype.display = function () {
                     pp_1 = Math.floor(pp/10)-1;
                     pp_2 = (pp % 10)-3;
 					
-					if(p == 103 && this.mapAnimations[p] != 0){
-					console.log("testingmax");
-					console.log(this.mapAnimations[p]);
-					console.log(pp);
-					console.log(pp_1);
-					console.log(pp_2);}
+					//if(p == 103 && this.mapAnimations[p] != 0){
+					//console.log("testingmax");
+					//console.log(this.mapAnimations[p]);
+					//console.log(pp);
+					//console.log(pp_1);
+					//console.log(pp_2);}
 					
                     switch(this.mapAnimations[p]){
 						
@@ -1234,7 +1268,7 @@ XMLscene.prototype.changeScene = function(){
     var filename = null;
     switch (this.fileNo) {
         case 0:
-            filename = getUrlVars()['file'] || "cena2.xml";
+            filename = getUrlVars()['file'] || "cena3.xml";
             this.fileNo = 1;
             break;
         case 1:

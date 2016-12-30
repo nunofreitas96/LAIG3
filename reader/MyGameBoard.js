@@ -44,14 +44,14 @@ MyGameBoard.prototype.getPrologRequest = function(requestString, onSuccess, onEr
 				request.open('GET', 'http://localhost:'+requestPort+'/'+requestString, true);
 				
 				request.onload = onSuccess || function(data){
-					console.log("Request successful. Reply: " + data.target.response);
+					//console.log("Request successful. Reply: " + data.target.response);
 					var response = data.target.response;
-					console.log(response);
+					//console.log(response);
 					
 					if(requestString == "board"){
 						//console.log("machadinha");
 						gBoard.boardString = response;
-						console.log(gBoard.boardString);
+						//console.log(gBoard.boardString);
 						gBoard.parseBoard(gBoard.boardString);
 					}
 					
@@ -63,9 +63,9 @@ MyGameBoard.prototype.getPrologRequest = function(requestString, onSuccess, onEr
 						var subRequest = requestString.substring(requestString.indexOf("(")+1,requestString.indexOf(")"));
 						
 						subSubRequest = subRequest.substring(subRequest.indexOf("]]")+3,subRequest.length);
-						console.log(subRequest);
+						//console.log(subRequest);
 						var list = subSubRequest.split(",");
-						console.log(list);
+						//console.log(list);
 						gBoard.confirmMove(list[0],list[1],list[2],list[3]);
 						
 					}
@@ -101,24 +101,24 @@ MyGameBoard.prototype.getPrologRequest = function(requestString, onSuccess, onEr
 					}
 					
 					if(requestString.substring(0,9) == "checkLose" && response == '1'){
-						console.log(this.gameover);
+						//console.log(this.gameover);
 						gBoard.gameover = 1;
-						console.log(this.gameover);
+						//console.log(this.gameover);
 						
 						if(gBoard.currPlayer == 0){
 							gBoard.playerWon = 0;
-							console.log("Player 1 won!");
+							//console.log("Player 1 won!");
 						}
 						else if(gBoard.currPlayer == 1){
 							gBoard.playerWon = 1; 
-							console.log("Player 2 won!");
+							//console.log("Player 2 won!");
 						}
 					
 					
 					}
 					if(requestString.substring(0,7) == "nMoves(" ){
 						//console.log("oiiiimmm");
-						console.log(response);
+						//console.log(response);
 						gBoard.scene.pointsP1 = response;
 						var prSentence = "nMoves2(" + gBoard.boardString + ")";
 						gBoard.getPrologRequest(prSentence);
@@ -256,7 +256,7 @@ MyGameBoard.prototype.setNewBS = function(){
 	
 	bString += "]"
 	bString2 += "]"
-	console.log(bString);
+	//console.log(bString);
 	this.boardString = bString;
 	this.boardString2 = bString2;
 	//var aioq = this.boardString.split(",");
