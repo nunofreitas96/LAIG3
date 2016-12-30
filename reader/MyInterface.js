@@ -18,7 +18,7 @@ MyInterface.prototype.init = function(application) {
     
     this.camera = 0;
     //this.difficulty = 1;
-    this.playerTimeChoose = 5;
+    this.playerTimeChoose = 300;
     this.type = 0;
     var Controls = function() {
         this.time = 0;
@@ -41,7 +41,7 @@ MyInterface.prototype.init = function(application) {
     
     this.Options = this.guiControls.addFolder("Options");
     //this.Options.add(this, 'difficulty', 1, 3).step(1);
-    this.Options.add(this, 'playerTimeChoose', 1, 60).step(1);
+    this.Options.add(this, 'playerTimeChoose', 15, 600).step(15);
     this.Options.add(this, 'type', { HvsH: 0, HvsM: 1, MvsM: 2 });
     //this.Options.add(this.scene, 'undoFunc');
     this.Options.add(this, 'camera', { p1: 0, right: 1, p2: 2 , left: 3});

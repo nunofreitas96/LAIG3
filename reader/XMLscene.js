@@ -41,7 +41,7 @@ XMLscene.prototype.init = function (application) {
     this.starting = 0;
     this.startTurno = 0;
     
-    this.status = 'a jogar';
+    //this.status = 'a jogar';
     this.pointsP1 = 0;
     this.pointsP2 = 0;
     
@@ -345,8 +345,8 @@ XMLscene.prototype.logPicking = function (){
                         if(peca == 103 || peca == 106){
                             
                             this.playerTime = 0;
-                            this.turno = (this.turno + 1) % 2;
-                            console.log("MUDA TURNO " +this.turno);
+                            
+                            console.log("MUDA TURNO " +this.gameBoard.currPlayer);
                         }
                     }
                     else{
@@ -408,6 +408,13 @@ XMLscene.prototype.update = function (currtime) {
             this.playerTime = this.elapsedTime-this.startTurno;
     }
     
+    if(this.gameBoard.currPlayer == 0){
+        this.status = "P1 a jogar";
+    }
+    else{
+        this.status = "P2 a jogar";
+    }
+    
     // TODO sistema de pontos
     //console.log(this.gameBoard.playerWon);
     if(this.gameBoard.playerWon == 2){      // ainda ninguem ganhou
@@ -423,11 +430,15 @@ XMLscene.prototype.update = function (currtime) {
     }
 	
 	if(Math.floor(this.playerTime) == this.myInterface.playerTimeChoose){
-        if(this.turno == 0){
-            this.status = 'P2 ganhou !';
+        if(this.gameBoard.currPlayer == 0){
+            this.gameBoard.currPlayer = 1;
+            this.playerTime = 0;
+            //this.status = 'P2 ganhou !';
         }
         else{
-            this.status = 'P1 ganhou !';
+            this.gameBoard.currPlayer = 0;
+            this.playerTime = 0;
+            //this.status = 'P1 ganhou !';
         }
         //this.elapsedTime = 0;
         //TODO forçar paragem
