@@ -36,6 +36,7 @@ XMLscene.prototype.init = function (application) {
     this.myView = '';
     this.tempCam = null;
     this.elapsedTime = 0;
+    this.myTime = this.elapsedTime;
     
     this.status = 'a jogar';
     this.pointsP1 = 0;
@@ -303,11 +304,11 @@ XMLscene.prototype.logPicking = function (){
                             vert_a=Math.floor(this.map[peca]/10);
                             vert_n=Math.floor(customId/10);
                             vert = vert_n - vert_a;
-                            console.log("Va: "+vert_a+" Vn: "+vert_n+" V: "+vert);
+                            //console.log("Va: "+vert_a+" Vn: "+vert_n+" V: "+vert);
                             hor_a=this.map[peca]%10;
                             hor_n=customId%10;
                             hor = hor_n - hor_a;
-                            console.log("Ha: "+hor_a+" Hn: "+hor_n+" H: "+hor);
+                            //console.log("Ha: "+hor_a+" Hn: "+hor_n+" H: "+hor);
                             
                             if(vert > 0){
                                 console.log("MOVE PECA (S) "+peca+" ACTUAL: "+this.map[peca]+" PROX: "+customId);
@@ -348,9 +349,9 @@ XMLscene.prototype.logPicking = function (){
 XMLscene.prototype.setSelObjects = function(customId,peca,anim){
 	this.map[peca] = customId;
 	this.mapAnimations[peca] = anim;
-	console.log( this.mapAnimations[peca]);
-	console.log(this.map[peca]);
-	console.log(peca);
+	//console.log( this.mapAnimations[peca]);
+	//console.log(this.map[peca]);
+	//console.log(peca);
 	//this.selectObjects.push(customId);
 }
 
@@ -382,14 +383,20 @@ XMLscene.prototype.update = function (currtime) {
     
     // TODO sistema de pontos
     //console.log(this.gameBoard.playerWon);
-	if(this.gameBoard.playerWon == 0){
-		this.status = 'P1 ganhou !';
-	}
-	else if(this.gameBoard.playerWon == 1){
-		this.status = 'P2 ganhou !';
-	}
+    if(this.gameBoard.playerWon == 2){      // ainda ninguem ganhou
+        this.myTime = this.elapsedTime;
+    }
+    else{                                   // alguem ganhou
+        if(this.gameBoard.playerWon == 0){
+            this.status = 'P1 ganhou !';
+        }
+        else if(this.gameBoard.playerWon == 1){
+            this.status = 'P2 ganhou !';
+        }
+    }
 	
-    if(Math.floor(this.elapsedTime) == 5400){
+	
+    if(Math.floor(this.myTime) == 5400){
         if(this.pointsP1 == this.pointsP2){
             this.status = 'empate !';
         }
@@ -444,7 +451,7 @@ XMLscene.prototype.processaGrafo= function(nodeName){
                         material.setTexture(texture);
                     }
                     */
-                    switch(Math.floor(this.elapsedTime) % 10 ){
+                    switch(Math.floor(this.myTime) % 10 ){
                         case 1:
                             texture = this.graph.scene.textures["time1A"];
                             break;
@@ -479,7 +486,7 @@ XMLscene.prototype.processaGrafo= function(nodeName){
                     material.setTexture(texture);
                 }
                 else if(node == this.graph["horas_4"]){
-                    switch( Math.floor(Math.floor(this.elapsedTime)/10) % 6 ){
+                    switch( Math.floor(Math.floor(this.myTime)/10) % 6 ){
                         case 1:
                             texture = this.graph.scene.textures["time1A"];
                             break;
@@ -514,7 +521,7 @@ XMLscene.prototype.processaGrafo= function(nodeName){
                     material.setTexture(texture);
                 }
                 else if(node == this.graph["horas_3"]){
-                    switch( Math.floor(Math.floor(this.elapsedTime)/60) ){
+                    switch( Math.floor(Math.floor(this.myTime)/60) ){
                         case 1:
                             texture = this.graph.scene.textures["time1A"];
                             break;
@@ -549,7 +556,7 @@ XMLscene.prototype.processaGrafo= function(nodeName){
                     material.setTexture(texture);
                 }
                 else if(node == this.graph["horas_2"]){
-                    switch( Math.floor(Math.floor(this.elapsedTime)/600) %6 ){
+                    switch( Math.floor(Math.floor(this.myTime)/600) %6 ){
                         case 1:
                             texture = this.graph.scene.textures["time1A"];
                             break;
@@ -584,7 +591,7 @@ XMLscene.prototype.processaGrafo= function(nodeName){
                     material.setTexture(texture);
                 }
                 else if(node == this.graph["horas_1"]){
-                    switch( Math.floor(Math.floor(this.elapsedTime)/3600) %24 ){
+                    switch( Math.floor(Math.floor(this.myTime)/3600) %24 ){
                         case 1:
                             texture = this.graph.scene.textures["time1A"];
                             break;
@@ -620,8 +627,8 @@ XMLscene.prototype.processaGrafo= function(nodeName){
                 }
                 
                 if(node == this.graph["pointsP1"]){
-					console.log("WELL ILL BE");
-					console.log(this.pointsP1);
+					//console.log("WELL ILL BE");
+					//console.log(this.pointsP1);
                     switch( parseInt(this.pointsP1) ){
                         case 1:
                             texture = this.graph.scene.textures["time1A"];
@@ -876,10 +883,10 @@ XMLscene.prototype.changeView = function (cam) {
 		this.updateView2(5);
 		this.myInterface.setActiveCamera(this.camera);
 	}
-	console.log()
-	console.log(this.camera);
-		console.log(this.views[cam]);
-		console.log(cam);
+	//console.log()
+	//console.log(this.camera);
+		//console.log(this.views[cam]);
+		//console.log(cam);
 		/*if(this.cam == 0){
 			this.initCameras();
 		}*/

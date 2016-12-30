@@ -49,7 +49,7 @@ MyGameBoard.prototype.getPrologRequest = function(requestString, onSuccess, onEr
 					console.log(response);
 					
 					if(requestString == "board"){
-						console.log("machadinha");
+						//console.log("machadinha");
 						gBoard.boardString = response;
 						console.log(gBoard.boardString);
 						gBoard.parseBoard(gBoard.boardString);
@@ -117,7 +117,7 @@ MyGameBoard.prototype.getPrologRequest = function(requestString, onSuccess, onEr
 					
 					}
 					if(requestString.substring(0,7) == "nMoves(" ){
-						console.log("oiiiimmm");
+						//console.log("oiiiimmm");
 						console.log(response);
 						gBoard.scene.pointsP1 = response;
 						var prSentence = "nMoves2(" + gBoard.boardString + ")";
@@ -138,7 +138,7 @@ MyGameBoard.prototype.getPrologRequest = function(requestString, onSuccess, onEr
 
 MyGameBoard.prototype.changeMode = function(type){
 	if(type == 0 && this.gamestart == 0){
-		console.log("still started");
+		//console.log("still started");
 		this.currPlayer = 0;
 		this.playerCPU1 =2;
 		this.playerCPU2 =2;
@@ -177,8 +177,8 @@ MyGameBoard.prototype.parseBoard = function(plBoard){
 	board.push(lines[i].match(/(\w|-\w+)/g));
 	
 	}
-	console.log(lines);
-	console.log(board);
+	//console.log(lines);
+	//console.log(board);
 	this.board = board;
 	this.setNewBS();
 	
@@ -285,10 +285,10 @@ MyGameBoard.prototype.keepId = function(customId,piece,anim,X,Y,NX,NY){
 MyGameBoard.prototype.confirmMove = function(X,Y,NX,NY){
 	
 	if(this.gameover == 0){
-	console.log("move confirmed, new coordinates :");
-	console.log(X);
-	console.log(Y);
-	console.log(this.nodeRX);
+	//console.log("move confirmed, new coordinates :");
+	//console.log(X);
+	//console.log(Y);
+	//console.log(this.nodeRX);
 	this.gamestart = 1;
 	
 	if(this.currPlayer == this.playerCPU1 || this.currPlayer == this.playerCPU2){
@@ -373,7 +373,7 @@ MyGameBoard.prototype.confirmMove = function(X,Y,NX,NY){
 	}
 	}
 	
-	console.log(this.board);
+	//console.log(this.board);
 	this.setNewBS();
 	
 	this.scene.setSelObjects(this.currId,this.currPeca,this.currAnim);
@@ -381,15 +381,15 @@ MyGameBoard.prototype.confirmMove = function(X,Y,NX,NY){
 	this.currId = 0;
 	this.currPeca = 0;
 	this.currAnim =0;
-	console.log("aiaiaiaia");
-	console.log(this.boardString);
+	//console.log("aiaiaiaia");
+	//console.log(this.boardString);
 	//função pa mexer no board
 	
 	var prSentence2 = "nMoves(" + this.boardString + ")";
 	this.getPrologRequest(prSentence2);
 	
-	console.log("pqp");
-	console.log(this.scene.pointsP1);
+	//console.log("pqp");
+	//console.log(this.scene.pointsP1);
 	
 	if(this.currPlayer == 0){
 	var prSentence = "checkLose(" + this.boardString2 + ",'W')";
