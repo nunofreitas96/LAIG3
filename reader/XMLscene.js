@@ -38,6 +38,8 @@ XMLscene.prototype.init = function (application) {
     this.elapsedTime = 0;
     this.myTime = this.elapsedTime;
     
+    this.starting = 0;
+    
     this.status = 'a jogar';
     this.pointsP1 = 0;
     this.pointsP2 = 0;
@@ -299,6 +301,7 @@ XMLscene.prototype.logPicking = function (){
                     if(customId<100){
                         console.log("SELECIONEI LUGAR");
                         if(this.selectObjects[this.selectObjects.length-1]>=100){
+                            this.starting = 1;
                             peca = this.selectObjects[this.selectObjects.length-1];
                             
                             vert_a=Math.floor(this.map[peca]/10);
@@ -378,8 +381,8 @@ XMLscene.prototype.update = function (currtime) {
 
     if (this.startTime == 0)
         this.startTime = currtime;
-
-    this.elapsedTime = (currtime - this.startTime) / 1000;
+    if(this.starting == 1)
+        this.elapsedTime = (currtime - this.startTime) / 1000;
     
     // TODO sistema de pontos
     //console.log(this.gameBoard.playerWon);
