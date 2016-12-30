@@ -175,6 +175,8 @@ MySceneGraph.prototype.parseViews = function(rootElement){
 		this.scene.views[e.id] = new CGFcamera(view.angle, view.near, view.far, vec3.fromValues(view.from[0], view.from[1], view.from[2]), vec3.fromValues(view.to[0], view.to[1], view.to[2]));
 		console.log(this.scene.views[e.id]);
 	}
+	
+	this.scene.views[5] = this.scene.views[0];
 
 	if (ids.length = 0) {
 		this.onXMLError("there must be at least one view");

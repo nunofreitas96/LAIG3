@@ -824,9 +824,20 @@ XMLscene.prototype.updateView = function () {
 
 };
 
+XMLscene.prototype.updateView2 = function (cam) {
+    var size = Object.keys(this.views).length;
+    var myViews = Object.keys(this.views);
+	this.myView = myViews[cam];
+     
+        
+
+
+};
+
 XMLscene.prototype.changeView = function (cam) {
     //console.log("CHANGE VIEW "+cam);
     //TODO animation through views
+	
 	
 	
 	if(this.camera.position[0] != this.views[cam].position[0] || this.camera.position[1] != this.views[cam].position[1] || this.camera.position[2] != this.views[cam].position[2] ){
@@ -857,6 +868,12 @@ XMLscene.prototype.changeView = function (cam) {
 		this.camera.far = this.views[cam].far;
 		this.camera.target = this.views[cam].target;
 		this.camera.direction = this.views[cam].direction;
+		 this.myInterface.setActiveCamera(this.camera);
+	}
+	else{
+		
+		this.updateView2(5);
+		this.myInterface.setActiveCamera(this.camera);
 	}
 	console.log()
 	console.log(this.camera);
@@ -868,7 +885,7 @@ XMLscene.prototype.changeView = function (cam) {
     //this.camera = this.views[cam];
 	//this.currCamera;
 	
-    this.myInterface.setActiveCamera(this.camera);
+   
 };
 
 
