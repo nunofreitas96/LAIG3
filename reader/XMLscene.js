@@ -840,19 +840,20 @@ XMLscene.prototype.changeView = function (cam) {
 	
 	
 	
-	if(this.camera.position[0] != this.views[cam].position[0] || this.camera.position[1] != this.views[cam].position[1] || this.camera.position[2] != this.views[cam].position[2] ){
+	if(this.camera.position[0] >= this.views[cam].position[0] + 1 || this.camera.position[0] <= this.views[cam].position[0] - 1 || this.camera.position[1] >= this.views[cam].position[1] + 1 || this.camera.position[1] <= this.views[cam].position[1] - 1 || this.camera.position[2] >= this.views[cam].position[2] + 1 || this.camera.position[2] <= this.views[cam].position[2] - 1 ){
 		var currPos = this.camera.position[2];
 		var currPos1 = this.camera.position[1];
 		var currPos2 = this.camera.position[0];
 		
 		if(this.camera.position[2] > this.views[cam].position[2]){
-		currPos = this.camera.position[2] - 1;}
+			currPos = this.camera.position[2] - 1;}
 		else if(this.camera.position[2] < this.views[cam].position[2]){
 			currPos = this.camera.position[2] + 1;
 		}
 		
 		if(this.camera.position[1] > this.views[cam].position[1]){
-		currPos1 = this.camera.position[1] - 1;}
+		currPos1 = this.camera.position[1] - 1;
+		}
 		else if(this.camera.position[1] < this.views[cam].position[1]){
 			currPos1 = this.camera.position[1] + 1;
 		}
